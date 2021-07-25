@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="I. 说说 JS 的数据类型1.1 基本类型 String Number Boolean null undefined symbol (ES6 中新增)  1.2 引用类型 Date RegExp Object Array Function ( 后三种为基本包装类型，特殊的引用类型，也算作基本类型)  1.3 基本类型保存在栈上，引用类型的引用保存在栈上，其对象保存在堆中。1.4 null 和 u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试基础之JavaScript篇">
+<meta property="og:url" content="https://iamtaoxin.com/2018/05/20/fe-interview-js/index.html">
+<meta property="og:site_name" content="码徒的博客">
+<meta property="og:description" content="I. 说说 JS 的数据类型1.1 基本类型 String Number Boolean null undefined symbol (ES6 中新增)  1.2 引用类型 Date RegExp Object Array Function ( 后三种为基本包装类型，特殊的引用类型，也算作基本类型)  1.3 基本类型保存在栈上，引用类型的引用保存在栈上，其对象保存在堆中。1.4 null 和 u">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-05-20T09:27:00.000Z">
+<meta property="article:modified_time" content="2021-07-25T10:03:05.988Z">
+<meta property="article:author" content="Nix_____">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>前端面试基础之JavaScript篇</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 5.0.0"><link rel="alternate" href="/atom.xml" title="码徒的博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇 " href="/2018/05/27/front-end-optimization/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇 " href="/2018/05/18/axios-post/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部 " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章 " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2018/05/20/fe-interview-js/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&text=前端面试基础之JavaScript篇"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&title=前端面试基础之JavaScript篇"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&is_video=false&description=前端面试基础之JavaScript篇"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=前端面试基础之JavaScript篇&body=Check out this article: https://iamtaoxin.com/2018/05/20/fe-interview-js/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&title=前端面试基础之JavaScript篇"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&title=前端面试基础之JavaScript篇"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&title=前端面试基础之JavaScript篇"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&title=前端面试基础之JavaScript篇"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&name=前端面试基础之JavaScript篇&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2018/05/20/fe-interview-js/&t=前端面试基础之JavaScript篇"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#I-%E8%AF%B4%E8%AF%B4-JS-%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">I. 说说 JS 的数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-1-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 基本类型</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-2-%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 引用类型</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-3-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%A0%88%E4%B8%8A%EF%BC%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BC%95%E7%94%A8%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%A0%88%E4%B8%8A%EF%BC%8C%E5%85%B6%E5%AF%B9%E8%B1%A1%E4%BF%9D%E5%AD%98%E5%9C%A8%E5%A0%86%E4%B8%AD%E3%80%82"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 基本类型保存在栈上，引用类型的引用保存在栈上，其对象保存在堆中。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-4-null-%E5%92%8C-undefined-%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 null 和 undefined 的区别？</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#II-%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87"><span class="toc-number">2.</span> <span class="toc-text">II. 变量提升</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#III-%E5%AF%B9%E4%BA%8E%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E4%BB%A5%E5%8F%8A%E5%9C%A8%E4%BB%80%E4%B9%88%E5%9C%BA%E6%99%AF%E4%B8%8B%E4%BC%9A%E4%BD%BF%E7%94%A8%E5%88%B0%E9%97%AD%E5%8C%85%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">III. 对于闭包的理解，以及在什么场景下会使用到闭包？</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#3-1-%E4%BB%80%E4%B9%88%E6%98%AF%E9%97%AD%E5%8C%85%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 什么是闭包？</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IV-%E8%B0%88%E8%B0%88%E5%AF%B9%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%9A%84%E4%BA%86%E8%A7%A3%E5%BA%A6%EF%BC%8C%E6%9C%89%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%8F%AF%E4%BB%A5%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%EF%BC%8C%E7%94%A8%E5%8E%9F%E5%9E%8B%E5%AE%9E%E7%8E%B0%E9%9B%86%E6%88%90%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E7%82%B9%EF%BC%8C%E8%A6%81%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">IV. 谈谈对原型与原型链的了解度，有几种方式可以实现继承，用原型实现集成有什么缺点，要怎么解决？</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#4-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8E%9F%E5%9E%8B%E9%93%BE%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 什么是原型链？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-2-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 原型与原型链的区别是什么？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-3-%E5%9C%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AF%AD%E8%A8%80%E4%B8%AD%EF%BC%8C%E7%BB%A7%E6%89%BF%E5%88%86%E4%B8%BA%E4%B8%A4%E7%A7%8D%EF%BC%9A"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 在面向对象语言中，继承分为两种：</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#V-iframe-%E7%9A%84%E7%BC%BA%E7%82%B9%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-number">5.</span> <span class="toc-text">V. iframe 的缺点有哪些？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#VI-Ajax-%E7%9A%84%E5%8E%9F%E7%94%9F%E5%86%99%E6%B3%95"><span class="toc-number">6.</span> <span class="toc-text">VI. Ajax 的原生写法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#VII-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5"><span class="toc-number">7.</span> <span class="toc-text">VII. 为什么会有同源策略</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#VIII-%E5%89%8D%E7%AB%AF%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">8.</span> <span class="toc-text">VIII. 前端解决跨域的几种方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IX-%E6%80%8E%E4%B9%88%E5%88%A4%E6%96%AD%E4%B8%A4%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89"><span class="toc-number">9.</span> <span class="toc-text">IX. 怎么判断两个对象是否相等</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#X-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="toc-number">10.</span> <span class="toc-text">X. 代码实现一个对象的深拷贝</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XI-%E4%BB%8E%E5%8F%91%E9%80%81%E4%B8%80%E4%B8%AA-url-%E5%9C%B0%E5%9D%80%E5%88%B0%E8%BF%94%E5%9B%9E%E9%A1%B5%E9%9D%A2%E5%86%85%E5%AE%B9%EF%BC%8C%E4%B8%AD%E9%97%B4%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">11.</span> <span class="toc-text">XI. 从发送一个 url 地址到返回页面内容，中间发生了什么？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XII-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%BA%86%E8%A7%A3%E5%A4%9A%E5%B0%91"><span class="toc-number">12.</span> <span class="toc-text">XII. 前端性能优化了解多少</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        前端面试基础之JavaScript篇
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Nix_____</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-05-20T09:27:00.000Z" itemprop="datePublished">2018-05-20</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E4%B8%AA%E4%BA%BA%E7%AC%94%E8%AE%B0/">个人笔记</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/javascript/" rel="tag">javascript</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h5 id="I-说说-JS-的数据类型"><a href="#I-说说-JS-的数据类型" class="headerlink" title="I. 说说 JS 的数据类型"></a>I. 说说 JS 的数据类型</h5><h6 id="1-1-基本类型"><a href="#1-1-基本类型" class="headerlink" title="1.1 基本类型"></a>1.1 基本类型</h6><ul>
+<li>String</li>
+<li>Number</li>
+<li>Boolean</li>
+<li>null</li>
+<li>undefined</li>
+<li>symbol (ES6 中新增)</li>
+</ul>
+<h6 id="1-2-引用类型"><a href="#1-2-引用类型" class="headerlink" title="1.2 引用类型"></a>1.2 引用类型</h6><ul>
+<li>Date</li>
+<li>RegExp</li>
+<li>Object</li>
+<li>Array</li>
+<li>Function ( 后三种为基本包装类型，特殊的引用类型，也算作基本类型)</li>
+</ul>
+<h6 id="1-3-基本类型保存在栈上，引用类型的引用保存在栈上，其对象保存在堆中。"><a href="#1-3-基本类型保存在栈上，引用类型的引用保存在栈上，其对象保存在堆中。" class="headerlink" title="1.3 基本类型保存在栈上，引用类型的引用保存在栈上，其对象保存在堆中。"></a>1.3 基本类型保存在栈上，引用类型的引用保存在栈上，其对象保存在堆中。</h6><h6 id="1-4-null-和-undefined-的区别？"><a href="#1-4-null-和-undefined-的区别？" class="headerlink" title="1.4 null 和 undefined 的区别？"></a>1.4 <code>null</code> 和 <code>undefined</code> 的区别？</h6><pre><code>- i. 含义不同：`null` 表示该处不该有值，而 `undefined` 表示该处有值，但还没有进行初始化
+- ii. 类型不同： `null` 的类型为 `Object`, `undefined` 的类型为 `undefined`</code></pre><h5 id="II-变量提升"><a href="#II-变量提升" class="headerlink" title="II. 变量提升"></a>II. 变量提升</h5><h5 id="III-对于闭包的理解，以及在什么场景下会使用到闭包？"><a href="#III-对于闭包的理解，以及在什么场景下会使用到闭包？" class="headerlink" title="III. 对于闭包的理解，以及在什么场景下会使用到闭包？"></a>III. 对于闭包的理解，以及在什么场景下会使用到闭包？</h5><h6 id="3-1-什么是闭包？"><a href="#3-1-什么是闭包？" class="headerlink" title="3.1 什么是闭包？"></a>3.1 什么是闭包？</h6><p>闭包是指那些可以访问独立数据的函数。</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">let</span> name <span class="token operator">=</span> <span class="token string">"Mozilla"</span><span class="token punctuation">;</span>
+  <span class="token comment">// name 是一个被 init创建的局部变量</span>
+  <span class="token keyword">function</span> <span class="token function">displayName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// displayName() 是一个内部函数</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 一个闭包使用在父函数中声明的变量</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token function">displayName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这段代码中，<code>displayName</code> 是一个典型的闭包，它能够访问它之外的 <code>name</code> 变量，并保存这个变量在它创建时的状态。这个特性非常实用，因为 <code>Javascript</code> 有很多奇怪的坑</p>
+<h5 id="IV-谈谈对原型与原型链的了解度，有几种方式可以实现继承，用原型实现集成有什么缺点，要怎么解决？"><a href="#IV-谈谈对原型与原型链的了解度，有几种方式可以实现继承，用原型实现集成有什么缺点，要怎么解决？" class="headerlink" title="IV. 谈谈对原型与原型链的了解度，有几种方式可以实现继承，用原型实现集成有什么缺点，要怎么解决？"></a>IV. 谈谈对原型与原型链的了解度，有几种方式可以实现继承，用原型实现集成有什么缺点，要怎么解决？</h5><h6 id="4-1-什么是原型链？"><a href="#4-1-什么是原型链？" class="headerlink" title="4.1 什么是原型链？"></a>4.1 什么是原型链？</h6><p>原型链是 <code>Javascript</code> 实现继承最重要的一种方式。每一个对象都有自己的原型对象，根原型对象没有原型，所以其 <code>__proto__</code> 属性值为 <code>null</code> 。在调用时，如果访问的对象属性没有找到，<code>Javascript</code> 会顺着原型链继续往下找，直到触碰到根原型为止。</p>
+<h6 id="4-2-原型与原型链的区别是什么？"><a href="#4-2-原型与原型链的区别是什么？" class="headerlink" title="4.2 原型与原型链的区别是什么？"></a>4.2 原型与原型链的区别是什么？</h6><p><code>__proto__</code> 是隐式原型，指向创建这个对象的函数<code>(constructor)</code> 的 <code>prptotype</code>，用来构成原型链和实现基于原型的继承。</p>
+<p><code>protype</code> 是显式原型，用来实现基于原型的继承与属性的共享。每一个函数都具有 <code>prototype</code> 属性。</p>
+<h6 id="4-3-在面向对象语言中，继承分为两种："><a href="#4-3-在面向对象语言中，继承分为两种：" class="headerlink" title="4.3 在面向对象语言中，继承分为两种："></a>4.3 在面向对象语言中，继承分为两种：</h6><ul>
+<li>接口集成：只集成方法签名</li>
+<li>实现集成：继承实际的方法</li>
+</ul>
+<p>因为 <code>Javascript</code> 没有继承的关键字，所以 JS 实现继承的方法很特殊，大概有以下几种：</p>
+<ul>
+<li>原型链继承(最常见)：</li>
+</ul>
+<pre class="line-numbers language-原型链继承" data-language="原型链继承"><code class="language-原型链继承">var Base &#x3D; function ()&#123;
+    this.name &#x3D; &#39;Base&#39;;
+    this.toString &#x3D; function ()&#123;
+        return this.name;
+    &#125;
+&#125;
+var Sub &#x3D; function ()&#123;
+    Base.call(this);
+    this.name &#x3D; &#39;Sub&#39;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这种继承解决了原型链继承的问题，但它也有一些弊端：使用 <code>instanceof</code> 运算符的时候会发现，它的实例并不是父类的实例（因为父类并没有在它的原型链上）。</p>
+<ul>
+<li>实例继承</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">var Base &#x3D; function ()&#123;
+    this.name &#x3D; &#39;Base&#39;;
+    this.toString &#x3D; function ()&#123;
+        return this.name;
+    &#125;
+&#125;
+var Sub &#x3D; function()&#123;
+    var instance &#x3D; new Base();
+    instance.name &#x3D; &#39;Sub&#39;;
+    return instance;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这种继承方法只能强行被归类为继承，因为它实际上是返回了一个父类的实例，与子类毫无关系。同样，这种方法也不支持多继承。</p>
+<ul>
+<li>拷贝继承</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">var Base &#x3D; function ()&#123;
+    this.name &#x3D; &#39;Base&#39;;
+    this.toString &#x3D; function ()&#123;
+        return this.name;
+    &#125;
+&#125;
+var Sub &#x3D; function ()&#123;
+    var base &#x3D; new Base();
+    for(var i in base)&#123;
+        sub.prototype[i] &#x3D; base[i];
+    &#125;
+    sub.prototype[&#39;name&#39;] &#x3D; &#39;Sub&#39;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>首先，只有可枚举的对象类型才能使用 <code>foreach</code> 的方式获取到。它的优点是可以实现多继承，缺点是不方便写，效率低。</p>
+<h5 id="V-iframe-的缺点有哪些？"><a href="#V-iframe-的缺点有哪些？" class="headerlink" title="V. iframe 的缺点有哪些？"></a>V. iframe 的缺点有哪些？</h5><h5 id="VI-Ajax-的原生写法"><a href="#VI-Ajax-的原生写法" class="headerlink" title="VI. Ajax 的原生写法"></a>VI. Ajax 的原生写法</h5><h5 id="VII-为什么会有同源策略"><a href="#VII-为什么会有同源策略" class="headerlink" title="VII. 为什么会有同源策略"></a>VII. 为什么会有同源策略</h5><h5 id="VIII-前端解决跨域的几种方式"><a href="#VIII-前端解决跨域的几种方式" class="headerlink" title="VIII. 前端解决跨域的几种方式"></a>VIII. 前端解决跨域的几种方式</h5><h5 id="IX-怎么判断两个对象是否相等"><a href="#IX-怎么判断两个对象是否相等" class="headerlink" title="IX. 怎么判断两个对象是否相等"></a>IX. 怎么判断两个对象是否相等</h5><h5 id="X-代码实现一个对象的深拷贝"><a href="#X-代码实现一个对象的深拷贝" class="headerlink" title="X. 代码实现一个对象的深拷贝"></a>X. 代码实现一个对象的深拷贝</h5><h5 id="XI-从发送一个-url-地址到返回页面内容，中间发生了什么？"><a href="#XI-从发送一个-url-地址到返回页面内容，中间发生了什么？" class="headerlink" title="XI. 从发送一个 url 地址到返回页面内容，中间发生了什么？"></a>XI. 从发送一个 url 地址到返回页面内容，中间发生了什么？</h5><h5 id="XII-前端性能优化了解多少"><a href="#XII-前端性能优化了解多少" class="headerlink" title="XII. 前端性能优化了解多少"></a>XII. 前端性能优化了解多少</h5>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#I-%E8%AF%B4%E8%AF%B4-JS-%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">I. 说说 JS 的数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-1-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 基本类型</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-2-%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 引用类型</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-3-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%A0%88%E4%B8%8A%EF%BC%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BC%95%E7%94%A8%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%A0%88%E4%B8%8A%EF%BC%8C%E5%85%B6%E5%AF%B9%E8%B1%A1%E4%BF%9D%E5%AD%98%E5%9C%A8%E5%A0%86%E4%B8%AD%E3%80%82"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 基本类型保存在栈上，引用类型的引用保存在栈上，其对象保存在堆中。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-4-null-%E5%92%8C-undefined-%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 null 和 undefined 的区别？</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#II-%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87"><span class="toc-number">2.</span> <span class="toc-text">II. 变量提升</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#III-%E5%AF%B9%E4%BA%8E%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E4%BB%A5%E5%8F%8A%E5%9C%A8%E4%BB%80%E4%B9%88%E5%9C%BA%E6%99%AF%E4%B8%8B%E4%BC%9A%E4%BD%BF%E7%94%A8%E5%88%B0%E9%97%AD%E5%8C%85%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">III. 对于闭包的理解，以及在什么场景下会使用到闭包？</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#3-1-%E4%BB%80%E4%B9%88%E6%98%AF%E9%97%AD%E5%8C%85%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 什么是闭包？</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IV-%E8%B0%88%E8%B0%88%E5%AF%B9%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%9A%84%E4%BA%86%E8%A7%A3%E5%BA%A6%EF%BC%8C%E6%9C%89%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%8F%AF%E4%BB%A5%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%EF%BC%8C%E7%94%A8%E5%8E%9F%E5%9E%8B%E5%AE%9E%E7%8E%B0%E9%9B%86%E6%88%90%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E7%82%B9%EF%BC%8C%E8%A6%81%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">IV. 谈谈对原型与原型链的了解度，有几种方式可以实现继承，用原型实现集成有什么缺点，要怎么解决？</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#4-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8E%9F%E5%9E%8B%E9%93%BE%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 什么是原型链？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-2-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 原型与原型链的区别是什么？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-3-%E5%9C%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AF%AD%E8%A8%80%E4%B8%AD%EF%BC%8C%E7%BB%A7%E6%89%BF%E5%88%86%E4%B8%BA%E4%B8%A4%E7%A7%8D%EF%BC%9A"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 在面向对象语言中，继承分为两种：</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#V-iframe-%E7%9A%84%E7%BC%BA%E7%82%B9%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-number">5.</span> <span class="toc-text">V. iframe 的缺点有哪些？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#VI-Ajax-%E7%9A%84%E5%8E%9F%E7%94%9F%E5%86%99%E6%B3%95"><span class="toc-number">6.</span> <span class="toc-text">VI. Ajax 的原生写法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#VII-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5"><span class="toc-number">7.</span> <span class="toc-text">VII. 为什么会有同源策略</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#VIII-%E5%89%8D%E7%AB%AF%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">8.</span> <span class="toc-text">VIII. 前端解决跨域的几种方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IX-%E6%80%8E%E4%B9%88%E5%88%A4%E6%96%AD%E4%B8%A4%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89"><span class="toc-number">9.</span> <span class="toc-text">IX. 怎么判断两个对象是否相等</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#X-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="toc-number">10.</span> <span class="toc-text">X. 代码实现一个对象的深拷贝</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XI-%E4%BB%8E%E5%8F%91%E9%80%81%E4%B8%80%E4%B8%AA-url-%E5%9C%B0%E5%9D%80%E5%88%B0%E8%BF%94%E5%9B%9E%E9%A1%B5%E9%9D%A2%E5%86%85%E5%AE%B9%EF%BC%8C%E4%B8%AD%E9%97%B4%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">11.</span> <span class="toc-text">XI. 从发送一个 url 地址到返回页面内容，中间发生了什么？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XII-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%BA%86%E8%A7%A3%E5%A4%9A%E5%B0%91"><span class="toc-number">12.</span> <span class="toc-text">XII. 前端性能优化了解多少</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2018/05/20/fe-interview-js/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&text=前端面试基础之JavaScript篇"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&title=前端面试基础之JavaScript篇"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&is_video=false&description=前端面试基础之JavaScript篇"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=前端面试基础之JavaScript篇&body=Check out this article: https://iamtaoxin.com/2018/05/20/fe-interview-js/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&title=前端面试基础之JavaScript篇"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&title=前端面试基础之JavaScript篇"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&title=前端面试基础之JavaScript篇"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&title=前端面试基础之JavaScript篇"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2018/05/20/fe-interview-js/&name=前端面试基础之JavaScript篇&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2018/05/20/fe-interview-js/&t=前端面试基础之JavaScript篇"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Nix_____
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96088772-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-96088772-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'xin_tao';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>

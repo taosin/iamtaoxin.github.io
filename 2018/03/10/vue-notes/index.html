@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="I. 什么是 MVVM?MVVM 是 Model-View-ViewModel 的缩写。它是一种设计思想。Model 层代表数据模型，也可以在 Model 中定义数据修改和操作的业务逻辑；View 代表 UI 组件，它负责将数据模型转化成 UI 展现出来；ViewModel 是一个同步 View 和 Model 的对象。 在MVVM架构下，View 和 Model 之间并没有直接的联系，而是通过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue常见知识点">
+<meta property="og:url" content="https://iamtaoxin.com/2018/03/10/vue-notes/index.html">
+<meta property="og:site_name" content="码徒的博客">
+<meta property="og:description" content="I. 什么是 MVVM?MVVM 是 Model-View-ViewModel 的缩写。它是一种设计思想。Model 层代表数据模型，也可以在 Model 中定义数据修改和操作的业务逻辑；View 代表 UI 组件，它负责将数据模型转化成 UI 展现出来；ViewModel 是一个同步 View 和 Model 的对象。 在MVVM架构下，View 和 Model 之间并没有直接的联系，而是通过">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-10T03:41:58.000Z">
+<meta property="article:modified_time" content="2021-07-25T10:03:05.993Z">
+<meta property="article:author" content="Nix_____">
+<meta property="article:tag" content="Vue.js">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Vue常见知识点</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 5.0.0"><link rel="alternate" href="/atom.xml" title="码徒的博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇 " href="/2018/03/14/house-tree-man/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇 " href="/2018/02/09/front-end-md/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部 " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章 " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2018/03/10/vue-notes/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2018/03/10/vue-notes/&text=Vue常见知识点"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2018/03/10/vue-notes/&title=Vue常见知识点"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2018/03/10/vue-notes/&is_video=false&description=Vue常见知识点"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Vue常见知识点&body=Check out this article: https://iamtaoxin.com/2018/03/10/vue-notes/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2018/03/10/vue-notes/&title=Vue常见知识点"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2018/03/10/vue-notes/&title=Vue常见知识点"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2018/03/10/vue-notes/&title=Vue常见知识点"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2018/03/10/vue-notes/&title=Vue常见知识点"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2018/03/10/vue-notes/&name=Vue常见知识点&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2018/03/10/vue-notes/&t=Vue常见知识点"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#I-%E4%BB%80%E4%B9%88%E6%98%AF-MVVM"><span class="toc-number">1.</span> <span class="toc-text">I. 什么是 MVVM?</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#II-MVVM-%E5%92%8C-MVC-%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">II. MVVM 和 MVC 的区别？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#III-Vue-%E7%9A%84%E4%BC%98%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">III. Vue 的优点是什么？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IV-Vue2-0-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">IV. Vue2.0 生命周期是什么？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#V-Vue1-0-%E5%92%8C-Vue2-0%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">5.</span> <span class="toc-text">V. Vue1.0 和 Vue2.0的对比</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Vue常见知识点
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Nix_____</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-03-10T03:41:58.000Z" itemprop="datePublished">2018-03-10</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E4%B8%AA%E4%BA%BA%E7%AC%94%E8%AE%B0/">个人笔记</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Vue-js/" rel="tag">Vue.js</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h5 id="I-什么是-MVVM"><a href="#I-什么是-MVVM" class="headerlink" title="I. 什么是 MVVM?"></a>I. 什么是 MVVM?</h5><p>MVVM 是 <code>Model-View-ViewModel</code> 的缩写。它是一种设计思想。<code>Model</code> 层代表数据模型，也可以在 <code>Model</code> 中定义数据修改和操作的业务逻辑；<code>View</code> 代表 UI 组件，它负责将数据模型转化成 UI 展现出来；<code>ViewModel</code> 是一个同步 <code>View</code> 和 <code>Model</code> 的对象。</p>
+<p>在<strong>MVVM</strong>架构下，<code>View</code> 和 <code>Model</code> 之间并没有直接的联系，而是通过 <code>ViewModel</code> 进行交互，<code>Model</code> 和 <code>ViewModel</code>之间的交互是双向的，因此 <code>View</code> 数据的变化会同步到 <code>Model</code> 中，而 <code>Model</code> 数据的变化也会立即反应到 <code>View</code> 上。</p>
+<p><code>ViewModel</code> 通过双向数据绑定把 <code>View</code> 层 和 <code>Mode</code> 层连接了起来，而 <code>View</code> 和 <code>Model</code> 之间的同步工作完全是自动的，不需要手动去操作 <strong>DOM</strong> 节点，不需要灌输主句状态的同步问题，复杂的数据状态维护完全由 <strong>MVVM</strong> 来统一管理。</p>
+<h5 id="II-MVVM-和-MVC-的区别？"><a href="#II-MVVM-和-MVC-的区别？" class="headerlink" title="II. MVVM 和 MVC 的区别？"></a>II. MVVM 和 MVC 的区别？</h5><p><strong>MVC</strong> 和 <strong>MVVM</strong> 都是一种设计思想。主要区别是 <strong>MVC</strong> 中 <code>Controller</code> 演变成了 <strong>MVVM</strong> 中的 <code>ViewModel</code>。 <em>*MVVM\</em> 主要解决了 <code>MCV</code> 中大量的 <em><em>DOM\</em>\</em> 操作是页面渲染性能降低，加载速度变慢，从而影响了用户体验。 而且当 <code>Model</code> 层数据频繁发生变化时，开发者需要手动更新 <code>View</code> 层。</p>
+<h5 id="III-Vue-的优点是什么？"><a href="#III-Vue-的优点是什么？" class="headerlink" title="III. Vue 的优点是什么？"></a>III. Vue 的优点是什么？</h5><ul>
+<li><p>a. 低耦合。视图层(View) 可以独立于 <code>Model</code> 变化和修改，一个 <code>ViewModel</code> 可以绑定到不同改的 <code>View</code> 上，当 <code>View</code> 发生变化 <code>Model</code> 可以不变，当 <code>Model</code> 变化的时候 <code>View</code> 也可以不变。</p>
+</li>
+<li><p>b. 可重用性。你可以把一些视图层逻辑放在一个 <code>ViewModel</code> 中，让很多 <code>View</code> 重用这段视图逻辑。</p>
+</li>
+<li><p>c. 独立开发。开发人员可以专注于业务逻辑和数据的开发(<code>ViewModel</code>)，设计人员可以专注于页面设计，使用 <code>Expression Blend</code> 可以很容易设计界面并生成 <strong>xml</strong> 代码。</p>
+</li>
+<li><p>d. 可测试。界面素来是比较难于测试的，而现在测试可以针对 <code>ViewModel</code> 来写专门的测试代码。</p>
+</li>
+</ul>
+<h5 id="IV-Vue2-0-生命周期是什么？"><a href="#IV-Vue2-0-生命周期是什么？" class="headerlink" title="IV. Vue2.0 生命周期是什么？"></a>IV. Vue2.0 生命周期是什么？</h5><p><strong>Vue</strong> 的生命周期总共有 创建前/后，载入前/后，销毁前/后。</p>
+<ul>
+<li><p>a. 创建前/后：在 <code>beforeCreate</code> 阶段，<em>Vue</em> 实例的挂载元素 <code>el</code> 和数据对象 <code>data</code> 都为 <code>undefined</code> ，还未初始化。在 <code>create</code> 阶段，<em>vue</em> 实例的数据对象 <em>data</em> 有了值，但 <em>el</em> 仍然没有。</p>
+</li>
+<li><p>b. 载入前/后：在 <code>beforeMount</code> 阶段，<em>Vue</em> 实例的 <code>$el</code> 和 <code>data</code> 都初始化了，但还是挂载之前虚拟的 <code>DOM</code> 节点，<code>data.message</code> 还未替换。在 <code>mounted</code> 阶段，<em>Vue</em> 实例挂载完成，<code>data.message</code> 成功渲染。</p>
+</li>
+<li><p>c. 更新前/后：当 <code>data</code> 发生变化时，会触发 <code>beforeUpdate</code> 和 <code>update</code> 方法。</p>
+</li>
+<li><p>d. 销毁前/后: 在执行 <code>destroy</code> 方法后，对 <code>data</code>的改变不会再触发周期函数，说明此时 <em>Vue</em> 实例已经解除了事件监听以及和 <code>DOM</code> 的绑定，但是 <code>DOM</code>结构依然存在。</p>
+</li>
+</ul>
+<h5 id="V-Vue1-0-和-Vue2-0的对比"><a href="#V-Vue1-0-和-Vue2-0的对比" class="headerlink" title="V. Vue1.0 和 Vue2.0的对比"></a>V. <a target="_blank" rel="noopener" href="https://v1.vuejs.org/guide/">Vue1.0</a> 和 <a target="_blank" rel="noopener" href="https://vuejs.org/">Vue2.0</a>的对比</h5><ul>
+<li>1.片段代码: 在 <code>Vue2.0</code> 中，每个组件模板中，必须有一个根元素，来包裹所有的元素。</li>
+</ul>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token comment">&lt;!-- 之前:   在1.0使用时完全没问题 --></span>
+<p><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h3</span><span class="token punctuation">&gt;</span></span>我是组件<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h3</span><span class="token punctuation">&gt;</span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">&gt;</span></span>我是加粗标签<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">&gt;</span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span><br><span class="token comment">&lt;!– 现在:  必须有根元素，包裹住所有的代码 –&gt;</span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">“</span>aaa<span class="token punctuation">“</span></span><span class="token punctuation">&gt;</span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h3</span><span class="token punctuation">&gt;</span></span>我是组件<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h3</span><span class="token punctuation">&gt;</span></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">&gt;</span></span>我是加粗标签<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">&gt;</span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>:hexoPostRenderEscape–&gt;</p>
+<ul>
+<li>2.生命周期见下表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">vue1.0</th>
+<th align="left">vue2.0</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">init</td>
+<td align="left">beforeCreate</td>
+<td align="left">组件实例刚被创建，组件属性计算之前，如 data 属性等。</td>
+</tr>
+<tr>
+<td align="left">created</td>
+<td align="left">created</td>
+<td align="left">组件实例创建完成，属性已绑定，但 <strong>DOM</strong> 还未生成，<code>$el</code>属性还不存在。</td>
+</tr>
+<tr>
+<td align="left">beforeCompile</td>
+<td align="left">boforeMount</td>
+<td align="left">模板编译/挂载之前</td>
+</tr>
+<tr>
+<td align="left">compiled</td>
+<td align="left">mounted</td>
+<td align="left">模板编辑/挂载之后</td>
+</tr>
+<tr>
+<td align="left">ready</td>
+<td align="left">mounted</td>
+<td align="left">模板编译/挂载之后（不保证组件已在 <code>document</code> 中）</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td align="left">beforeUpdate</td>
+<td align="left">组件更新之前</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td align="left">updated</td>
+<td align="left">组件更新之后</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td align="left">activated</td>
+<td align="left">for <code>keep-alive</code> ，组件被激活时调用</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td align="left">deactivated</td>
+<td align="left">for <code>keep-alive</code> ，组件被移除时调用</td>
+</tr>
+<tr>
+<td align="left">attached</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">deattached</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">beforeDestroy</td>
+<td align="left">beforeDestroy</td>
+<td align="left">组件销毁前调用</td>
+</tr>
+<tr>
+<td align="left">destroyed</td>
+<td align="left">destroyed</td>
+<td align="left">组件销毁后调用</td>
+</tr>
+</tbody></table>
+<ul>
+<li>3.过滤器<br>2.0 删除了 1.0 所有自带的过滤器，将不再是传参的方式调用，如下：</li>
+</ul>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>msg <span class="token operator">|</span> mimi <span class="token string">'12'</span> <span class="token string">'5'</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre><code>而现在2.0中，要使用过滤器，必须要自定义一个过滤器:</code></pre><pre class="line-numbers language-js" data-language="js"><code class="language-js">Vue<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token string">"toDou"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">n<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> n <span class="token operator">&lt;</span> <span class="token number">10</span> <span class="token operator">?</span> n <span class="token operator">+</span> a <span class="token operator">+</span> b <span class="token operator">:</span> <span class="token string">""</span> <span class="token operator">+</span> n<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">//调用过滤器</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token punctuation">&#123;</span>
+    msg <span class="token operator">|</span> <span class="token function">mimi</span><span class="token punctuation">(</span><span class="token string">"12"</span><span class="token punctuation">,</span> <span class="token string">"5"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>4.<code>v-for</code>循环<ul>
+<li>在 1.0 中循环渲染时会使用到 <code>tranck-by=&quot;$indec&quot;</code>来提高 for 循环的性能，而在 2.0，使用重复数据将不会报错，同时也去掉了一些隐式变量如：index 、 key，如果要用到 <code>index</code> 和 <code>key</code> 则可通过 ES6 的语法来获取：</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html">v-for="(val,index) in rows"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre><code>* 关于整数循环，1.0的整数循环是从0开始的，2.0的整数循环则是从1开始的。</code></pre>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#I-%E4%BB%80%E4%B9%88%E6%98%AF-MVVM"><span class="toc-number">1.</span> <span class="toc-text">I. 什么是 MVVM?</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#II-MVVM-%E5%92%8C-MVC-%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">II. MVVM 和 MVC 的区别？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#III-Vue-%E7%9A%84%E4%BC%98%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">III. Vue 的优点是什么？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IV-Vue2-0-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">IV. Vue2.0 生命周期是什么？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#V-Vue1-0-%E5%92%8C-Vue2-0%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">5.</span> <span class="toc-text">V. Vue1.0 和 Vue2.0的对比</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2018/03/10/vue-notes/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2018/03/10/vue-notes/&text=Vue常见知识点"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2018/03/10/vue-notes/&title=Vue常见知识点"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2018/03/10/vue-notes/&is_video=false&description=Vue常见知识点"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Vue常见知识点&body=Check out this article: https://iamtaoxin.com/2018/03/10/vue-notes/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2018/03/10/vue-notes/&title=Vue常见知识点"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2018/03/10/vue-notes/&title=Vue常见知识点"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2018/03/10/vue-notes/&title=Vue常见知识点"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2018/03/10/vue-notes/&title=Vue常见知识点"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2018/03/10/vue-notes/&name=Vue常见知识点&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2018/03/10/vue-notes/&t=Vue常见知识点"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Nix_____
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96088772-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-96088772-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'xin_tao';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>

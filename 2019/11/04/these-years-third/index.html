@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="我对这座城市入了魔，曾经试图离开她，也离开了她，最后又鬼迷心窍般回到了这里，仿佛迷药已经侵蚀到了骨头里，稍有懈怠，你便会被一种无形的力量吞噬。  一、辞职  在这一年里，我做了很多事情，也学到了很多。我学习到了很多名词，但却杂乱无章，没有感觉到一丁点编程的乐趣；也领见识了勾心斗角，即使你不想参与任何一方的斗争，也仍然会被波及。在这一年，我的技术却没有任何进步，第一次感觉到迷茫，一年前也没有这般思考">
+<meta property="og:type" content="article">
+<meta property="og:title" content="辞职，修路去 -- 我做编程这几年（三）">
+<meta property="og:url" content="https://iamtaoxin.com/2019/11/04/these-years-third/index.html">
+<meta property="og:site_name" content="码徒的博客">
+<meta property="og:description" content="我对这座城市入了魔，曾经试图离开她，也离开了她，最后又鬼迷心窍般回到了这里，仿佛迷药已经侵蚀到了骨头里，稍有懈怠，你便会被一种无形的力量吞噬。  一、辞职  在这一年里，我做了很多事情，也学到了很多。我学习到了很多名词，但却杂乱无章，没有感觉到一丁点编程的乐趣；也领见识了勾心斗角，即使你不想参与任何一方的斗争，也仍然会被波及。在这一年，我的技术却没有任何进步，第一次感觉到迷茫，一年前也没有这般思考">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-04T06:26:46.000Z">
+<meta property="article:modified_time" content="2021-07-25T10:03:05.993Z">
+<meta property="article:author" content="Nix_____">
+<meta property="article:tag" content="我做编程这几年">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>辞职，修路去 -- 我做编程这几年（三）</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 5.0.0"><link rel="alternate" href="/atom.xml" title="码徒的博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇 " href="/2020/03/01/vue-qiankun/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇 " href="/2019/10/30/these-years-second/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部 " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章 " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2019/11/04/these-years-third/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2019/11/04/these-years-third/&text=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2019/11/04/these-years-third/&title=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2019/11/04/these-years-third/&is_video=false&description=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=辞职，修路去 -- 我做编程这几年（三）&body=Check out this article: https://iamtaoxin.com/2019/11/04/these-years-third/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2019/11/04/these-years-third/&title=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2019/11/04/these-years-third/&title=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2019/11/04/these-years-third/&title=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2019/11/04/these-years-third/&title=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2019/11/04/these-years-third/&name=辞职，修路去 -- 我做编程这几年（三）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2019/11/04/these-years-third/&t=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        辞职，修路去 -- 我做编程这几年（三）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Nix_____</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-11-04T06:26:46.000Z" itemprop="datePublished">2019-11-04</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%88%91%E5%81%9A%E7%BC%96%E7%A8%8B%E8%BF%99%E5%87%A0%E5%B9%B4/" rel="tag">我做编程这几年</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>我对这座城市入了魔，曾经试图离开她，也离开了她，最后又鬼迷心窍般回到了这里，仿佛迷药已经侵蚀到了骨头里，稍有懈怠，你便会被一种无形的力量吞噬。</p>
+<ul>
+<li>一、辞职</li>
+</ul>
+<p>在这一年里，我做了很多事情，也学到了很多。我学习到了很多名词，但却杂乱无章，没有感觉到一丁点编程的乐趣；也领见识了勾心斗角，即使你不想参与任何一方的斗争，也仍然会被波及。在这一年，我的技术却没有任何进步，第一次感觉到迷茫，一年前也没有这般思考过自己。</p>
+<p><strong>看来，编程真的不适合我。</strong></p>
+<p>决定再三，我提交了辞呈，理由是不想再当程序员了，想做点有意义的事情，想转行，比如，去做建筑。</p>
+<ul>
+<li>二、青海</li>
+</ul>
+<p>只需一张火车票，就能把你从上海带到青海。一年前我由西向东，一年后我怀揣着梦想又离开了魔都。来的时候包里全是书，离开的时候我的包里装着七本建筑类的书籍，由此可见，我真的不想再做程序员了，已经做好了不再回去的打算。<br>对于一个西北人来说，回到大西北是对自己莫大的安慰。海拔一米一米上升，我的呼吸却不是那么顺畅，仿佛已经习惯了低海拔的生活，在经过海拔一千五的兰州时，我的鼻子已经有点堵塞了。窗外的景色，变化了很多次，从一开始的绿色到后来的黄土色，远处的山上寸草不生，一眼望去，这便是苍凉的大西北。</p>
+<ul>
+<li>三、路桥</li>
+</ul>
+<p>朋友专业是土木，毕业之后也是做了建筑这一行，因此我也是寻他而来，在他的帮助下，我投身到了路桥事业。每天的工作便是领着一群藏族民工修路，读图纸量距离看数据…西宁的太阳很是毒辣，没过几天我俨然被晒成黑人一个，脸上也开始脱皮。</p>
+<p>后来由于种种原因，在连续工作了一周之后，甚至连工钱都没有拿便愤然离去。</p>
+<p>当然，这并不是心血来潮，可依然要为自己的抉择负责。</p>
+<ul>
+<li>四、上班</li>
+</ul>
+<p>记得是八月下旬到西宁的，然后租了房子，买了各种电器，开始了新的生活。可是，我的建筑生涯在七天之后就已经戛然而止。后来也连续找了其他工作，或是工资太低，或是做六休一…终于在一家汽车 4S 店找到了适合我的工作，在当时的西宁来说，我的工资已经不低了。而且因为我是毕业于财经类学校的缘故，财务也有想培养我做会计的想法，领导也让我去总部培训，好能够留下来。同事们也都待人不错，每天可以喝到同事磨好的咖啡，跟楼下的大爷聊聊天，看他写字听他拉二胡，日子过得也是不错，那是一段很有意义的工作。</p>
+<ul>
+<li>五、离职</li>
+</ul>
+<p>当我提出离职的时候，领导很是不舍，以至于在离职当天，他半开玩笑却也认真地说要撕掉我的离职申请，但他也清楚我的想法，随即放手。</p>
+<ul>
+<li>六、初雪</li>
+</ul>
+<p>离职的时候才十一月，可在当时的西宁，已经下起了雪，那应该是 15 年冬的初雪，落地即化。踩在地上，很快就会湿了鞋子。<strong>这一离去，貌似我在今后的四年里再没有经历过西北的第一场雪。</strong></p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2019/11/04/these-years-third/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2019/11/04/these-years-third/&text=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2019/11/04/these-years-third/&title=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2019/11/04/these-years-third/&is_video=false&description=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=辞职，修路去 -- 我做编程这几年（三）&body=Check out this article: https://iamtaoxin.com/2019/11/04/these-years-third/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2019/11/04/these-years-third/&title=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2019/11/04/these-years-third/&title=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2019/11/04/these-years-third/&title=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2019/11/04/these-years-third/&title=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2019/11/04/these-years-third/&name=辞职，修路去 -- 我做编程这几年（三）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2019/11/04/these-years-third/&t=辞职，修路去 -- 我做编程这几年（三）"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Nix_____
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96088772-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-96088772-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'xin_tao';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>

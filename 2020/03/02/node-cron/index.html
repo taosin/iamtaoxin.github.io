@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="cron 是一个 linux 下的定时执行工具，可以在无需人工干预的情况下运行作业。 安装$ npm install -g cron  Useconst cronJob &#x3D; require(&quot;cron&quot;).CronJob;  &#x2F;&#x2F;每秒钟执行一次 new cronJob(   &quot;* * * * * *&quot;,   function () &amp;#123;     &#x2F;&#x2F;your job code here">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于 Node.js 中的 Cron 定时任务">
+<meta property="og:url" content="https://iamtaoxin.com/2020/03/02/node-cron/index.html">
+<meta property="og:site_name" content="码徒的博客">
+<meta property="og:description" content="cron 是一个 linux 下的定时执行工具，可以在无需人工干预的情况下运行作业。 安装$ npm install -g cron  Useconst cronJob &#x3D; require(&quot;cron&quot;).CronJob;  &#x2F;&#x2F;每秒钟执行一次 new cronJob(   &quot;* * * * * *&quot;,   function () &amp;#123;     &#x2F;&#x2F;your job code here">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-02T08:56:54.000Z">
+<meta property="article:modified_time" content="2021-07-25T10:03:05.992Z">
+<meta property="article:author" content="Nix_____">
+<meta property="article:tag" content="Node">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>关于 Node.js 中的 Cron 定时任务</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 5.0.0"><link rel="alternate" href="/atom.xml" title="码徒的博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇 " href="/2020/03/02/daily-laught/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇 " href="/2020/03/01/vue-qiankun/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部 " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章 " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2020/03/02/node-cron/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2020/03/02/node-cron/&text=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2020/03/02/node-cron/&title=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2020/03/02/node-cron/&is_video=false&description=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=关于 Node.js 中的 Cron 定时任务&body=Check out this article: https://iamtaoxin.com/2020/03/02/node-cron/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2020/03/02/node-cron/&title=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2020/03/02/node-cron/&title=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2020/03/02/node-cron/&title=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2020/03/02/node-cron/&title=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2020/03/02/node-cron/&name=关于 Node.js 中的 Cron 定时任务&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2020/03/02/node-cron/&t=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Use"><span class="toc-number">2.</span> <span class="toc-text">Use</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cron-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">cron 表达式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E6%AE%B5%E5%90%AB%E4%B9%89"><span class="toc-number">4.</span> <span class="toc-text">字段含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">示例</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        关于 Node.js 中的 Cron 定时任务
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Nix_____</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-02T08:56:54.000Z" itemprop="datePublished">2020-03-02</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E6%95%B4%E7%90%86/">技术整理</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Node/" rel="tag">Node</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>cron 是一个 linux 下的定时执行工具，可以在无需人工干预的情况下运行作业。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> -g <span class="token function">cron</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="Use"><a href="#Use" class="headerlink" title="Use"></a>Use</h4><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> cronJob <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"cron"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>CronJob<span class="token punctuation">;</span>
+
+<span class="token comment">//每秒钟执行一次</span>
+<span class="token keyword">new</span> <span class="token class-name">cronJob</span><span class="token punctuation">(</span>
+  <span class="token string">"* * * * * *"</span><span class="token punctuation">,</span>
+  <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">//your job code here</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token string">"Asia/Chongqing"</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">//每隔30秒执行一次，会在0秒和30秒处执行</span>
+<span class="token keyword">new</span> <span class="token class-name">cronJob</span><span class="token punctuation">(</span>
+  <span class="token string">"*/30 * * * * *"</span><span class="token punctuation">,</span>
+  <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">//your job code here</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token string">"Asia/Chongqing"</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">//从早上8点到下午18点，每隔半个小时执行一次，会在0分和30分处执行</span>
+<span class="token keyword">new</span> <span class="token class-name">cronJob</span><span class="token punctuation">(</span>
+  <span class="token string">"* */30 8-18 * * *"</span><span class="token punctuation">,</span>
+  <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">//your job code here</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token string">"Asia/Chongqing"</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">//在每天的10点和18点的第26分钟各执行一次</span>
+<span class="token keyword">new</span> <span class="token class-name">cronJob</span><span class="token punctuation">(</span>
+  <span class="token string">"* 26 10,18 * * *"</span><span class="token punctuation">,</span>
+  <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">//your job code here</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token string">"Asia/Chongqing"</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>不立即执行，人工启动</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> jobid <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">cronJob</span><span class="token punctuation">(</span>
+  <span class="token string">"* 26 10,18 * * *"</span><span class="token punctuation">,</span>
+  <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">//your job code here</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token boolean">false</span><span class="token punctuation">,</span>
+  <span class="token string">"Asia/Chongqing"</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asia/Shanghai</span>
+jobid<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="cron-表达式"><a href="#cron-表达式" class="headerlink" title="cron 表达式"></a>cron 表达式</h4><table>
+<thead>
+<tr>
+<th>顺序</th>
+<th>秒</th>
+<th>分钟</th>
+<th>小时</th>
+<th>日期</th>
+<th>月份</th>
+<th>星期</th>
+<th>年（可选）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>取值</td>
+<td>0-59</td>
+<td>0-59</td>
+<td>0-23</td>
+<td>1-30（31）</td>
+<td>1-12</td>
+<td>1-7</td>
+<td></td>
+</tr>
+<tr>
+<td>允许特殊字符</td>
+<td>,-*/</td>
+<td>,-*/</td>
+<td>,-*/</td>
+<td>,-*/?LWC</td>
+<td>,-*/</td>
+<td>,-*/L#C</td>
+<td>1970-2099 , - * /</td>
+</tr>
+</tbody></table>
+<h4 id="字段含义"><a href="#字段含义" class="headerlink" title="字段含义"></a>字段含义</h4><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token operator">*</span>：代表所有可能的值
+<span class="token operator">-</span>：指定范围
+<span class="token punctuation">,</span>：列出枚举  例如在分钟里，<span class="token string">"5,15"</span>表示<span class="token number">5</span>分钟和<span class="token number">20</span>分钟触发
+<span class="token operator">/</span>：指定增量  例如在分钟里，<span class="token string">"3/15"</span>表示从<span class="token number">3</span>分钟开始，没隔<span class="token number">15</span>分钟执行一次
+<span class="token operator">?</span>：表示没有具体的值，使用<span class="token operator">?</span>要注意冲突
+<span class="token constant">L</span>：表示last，例如星期中表示<span class="token number">7</span>或<span class="token constant">SAT</span>，月份中表示最后一天<span class="token number">31</span>或<span class="token number">30</span>，<span class="token number">6</span>L表示这个月倒数第<span class="token number">6</span>天，<span class="token constant">FRIL</span>表示这个月的最后一个星期五
+<span class="token constant">W</span>：只能用在月份中，表示最接近指定天的工作日
+#：只能用在星期中，表示这个月的第几个周几，例如<span class="token number">6</span>#<span class="token number">3</span>表示这个月的第<span class="token number">3</span>个周五<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><pre class="line-numbers language-none"><code class="language-none">0 * * * * ? 每1分钟触发一次
+0 0 * * * ? 每天每1小时触发一次
+0 0 10 * * ? 每天10点触发一次
+0 * 14 * * ? 在每天下午2点到下午2:59期间的每1分钟触发
+0 30 9 1 * ? 每月1号上午9点半
+0 15 10 15 * ? 每月15日上午10:15触发
+*&#x2F;5 * * * * ? 每隔5秒执行一次
+0 *&#x2F;1 * * * ? 每隔1分钟执行一次
+0 0 5-15 * * ? 每天5-15点整点触发
+0 0&#x2F;3 * * * ? 每三分钟触发一次
+0 0 0 1 * ?  每月1号凌晨执行一次<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>你可以在 <a target="_blank" rel="noopener" href="http://cron.qqe2.com/">http://cron.qqe2.com/</a> 中验证 cron 表达式</p>
+</blockquote>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Use"><span class="toc-number">2.</span> <span class="toc-text">Use</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cron-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">cron 表达式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E6%AE%B5%E5%90%AB%E4%B9%89"><span class="toc-number">4.</span> <span class="toc-text">字段含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">示例</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2020/03/02/node-cron/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2020/03/02/node-cron/&text=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2020/03/02/node-cron/&title=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2020/03/02/node-cron/&is_video=false&description=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=关于 Node.js 中的 Cron 定时任务&body=Check out this article: https://iamtaoxin.com/2020/03/02/node-cron/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2020/03/02/node-cron/&title=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2020/03/02/node-cron/&title=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2020/03/02/node-cron/&title=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2020/03/02/node-cron/&title=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2020/03/02/node-cron/&name=关于 Node.js 中的 Cron 定时任务&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2020/03/02/node-cron/&t=关于 Node.js 中的 Cron 定时任务"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Nix_____
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96088772-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-96088772-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'xin_tao';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>

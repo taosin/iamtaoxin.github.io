@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="文章来自：App Shell 模型  |  Web  |  Google Developers App Shell 架构是构建 Progressive Web App 的一种方式，这种应用能可靠且即时地加载到您的用户屏幕上，与本机应用相似。 App Shell 是支持用户界面所需的最小的 HTML、CSS 和 JavaScript，如果离线缓存，可确保在用户重复访问时提供 即时、可靠的良好性能。这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="App Shell模型">
+<meta property="og:url" content="https://iamtaoxin.com/2018/02/06/app-shell-md/index.html">
+<meta property="og:site_name" content="码徒的博客">
+<meta property="og:description" content="文章来自：App Shell 模型  |  Web  |  Google Developers App Shell 架构是构建 Progressive Web App 的一种方式，这种应用能可靠且即时地加载到您的用户屏幕上，与本机应用相似。 App Shell 是支持用户界面所需的最小的 HTML、CSS 和 JavaScript，如果离线缓存，可确保在用户重复访问时提供 即时、可靠的良好性能。这">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://iamtaoxin.com/2018/02/06/app-shell-md/App%20Shell%E6%A8%A1%E5%9E%8B/appshell.png">
+<meta property="og:image" content="https://iamtaoxin.com/2018/02/06/app-shell-md/App%20Shell%E6%A8%A1%E5%9E%8B/wikipedia.jpg">
+<meta property="article:published_time" content="2018-02-06T08:29:09.000Z">
+<meta property="article:modified_time" content="2021-07-25T10:03:05.985Z">
+<meta property="article:author" content="Nix_____">
+<meta property="article:tag" content="PWA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://iamtaoxin.com/2018/02/06/app-shell-md/App%20Shell%E6%A8%A1%E5%9E%8B/appshell.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>App Shell模型</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 5.0.0"><link rel="alternate" href="/atom.xml" title="码徒的博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇 " href="/2018/02/07/es6-set/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇 " href="/2017/07/13/vue-use-dev-normal/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部 " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章 " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2018/02/06/app-shell-md/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&text=App Shell模型"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&title=App Shell模型"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&is_video=false&description=App Shell模型"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=App Shell模型&body=Check out this article: https://iamtaoxin.com/2018/02/06/app-shell-md/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&title=App Shell模型"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&title=App Shell模型"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&title=App Shell模型"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&title=App Shell模型"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&name=App Shell模型&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2018/02/06/app-shell-md/&t=App Shell模型"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8-App-Shell-%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">何时使用 App Shell 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF"><span class="toc-number">2.</span> <span class="toc-text">优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A6%81%E6%B1%82"><span class="toc-number">3.</span> <span class="toc-text">要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E6%82%A8%E8%87%AA%E5%B7%B1%E7%9A%84-App-Shell"><span class="toc-number">4.</span> <span class="toc-text">构建您自己的 App Shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#App-Shell-%E7%9A%84-HTML-%E7%A4%BA%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">App Shell 的 HTML 示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98-App-Shell"><span class="toc-number">6.</span> <span class="toc-text">缓存 App Shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E7%BC%93%E5%AD%98-App-Shell"><span class="toc-number">7.</span> <span class="toc-text">手动缓存 App Shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-sw-precache-%E7%BC%93%E5%AD%98-App-Shell"><span class="toc-number">8.</span> <span class="toc-text">使用 sw-precache 缓存 App Shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">9.</span> <span class="toc-text">结论</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        App Shell模型
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Nix_____</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-02-06T08:29:09.000Z" itemprop="datePublished">2018-02-06</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E6%95%B4%E7%90%86/">技术整理</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/PWA/" rel="tag">PWA</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>文章来自：<a target="_blank" rel="noopener" href="https://developers.google.com/web/fundamentals/architecture/app-shell?hl=zh-cn">App Shell 模型  |  Web  |  Google Developers</a></p>
+<p><strong>App Shell</strong> 架构是构建 Progressive Web App 的一种方式，这种应用能可靠且即时地加载到您的用户屏幕上，与本机应用相似。</p>
+<p><strong>App Shell</strong> 是支持用户界面所需的最小的 HTML、CSS 和 JavaScript，如果离线缓存，可确保在用户重复访问时提供 <strong>即时</strong>、<strong>可靠的良好性能</strong>。这意味着并不是每次用户访问时都要从网络加载 App Shell，只需要从网络中加载必要的内容。</p>
+<p>对于使用包含大量 JavaScript 的架构的 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Single-page_application">单页应用</a>来说，App Shell 是一种常用方法。这种方法依赖渐进式缓存 Shell（使用<a target="_blank" rel="noopener" href="https://developers.google.com/web/fundamentals/primers/service-workers/?hl=zh-cn">服务工作线程：简介  |  Web  |  Google Developers</a>）让应用运行。接下来，为使用 JavaScript 的每个页面加载动态内容。App Shell 非常适合用于在没有网络的情况下将一些初始 HTML 快速加载到屏幕上。</p>
+<p><img src="App%20Shell%E6%A8%A1%E5%9E%8B/appshell.png" alt=""></p>
+<p>换个说法，App Shell 就类似于您在开发本机应用时需要向应用商店发布的一组代码。 它是 UI 的主干以及让您的应用成功起步所需的核心组件，但可能并不包含数据。</p>
+<p>注：请尝试<a target="_blank" rel="noopener" href="https://codelabs.developers.google.com/codelabs/your-first-pwapp/?hl=zh-cn#0">Your First Progressive Web App</a>代码实验室，了解如何为天气应用构建和实现第一个 App Shell。<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=QhUzmR8eZAo&hl=zh-cn">使用 Shell Model 应用即时下载（第三季，第二集） - YouTube</a>也演练了这种模式。</p>
+<h3 id="何时使用-App-Shell-模型"><a href="#何时使用-App-Shell-模型" class="headerlink" title="何时使用 App Shell 模型"></a>何时使用 App Shell 模型</h3><p>构建 PWA 并不意味着从头开始。如果您构建的是现代单页应用，那么您很可能使用的就是类似于 App Shell 的模型，不管您是否这么称呼它。根据您使用的内容库或框架的不同，详细内容可能略有不同，但该概念本身与框架无关。</p>
+<p>App Shell 架构具有相对不变的导航以及一直变化的内容，对应于和网站意义重大。 大量现代 JavaScript 框架和内容库已经鼓励拆分应用逻辑及其内容，从而使这种架构更能直接应用。对于只有静态内容的某一类网站，您也可以使用相同的模型，但网站 100% 是 App Shell。</p>
+<p>如需了解 Google 构建 App Shell 架构的方式，请查看构建<a target="_blank" rel="noopener" href="https://developers.google.com/web/showcase/2016/iowa2016?hl=zh-cn">Building the Google I/O 2016 Progressive Web App  |  Web  |  Google Developers</a>。这个真实的应用以 SPA 开始创建 PWA，使用服务工作线程预先缓存内容、动态加载新页面、在视图之间完美过渡，并且在第一次加载后重用内容。</p>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><p>使用服务工作线程的 App Shell 架构的优势包括：</p>
+<ul>
+<li><strong>始终快速的可靠性能</strong>。重复访问速度极快。 第一次访问时即可缓存静态资产和 UI（例如 HTML、JavaScript、图像和 CSS），以便在重复访问时即时加载。内容可能会在第一次访问时缓存到系统中，但一般会在需要时才进行加载。</li>
+<li><strong>如同本机一样的交互</strong>。通过采用 App Shell 模型，您可以构建如同本机应用一样的即时导航和交互，包括离线支持。</li>
+<li><strong>数据的经济使用</strong>。其设计旨在实现最少的数据使用量，并且可以正确判断缓存的内容，因为列出不需要的文件（例如，并不是每个页面都显示的大型图像）会导致浏览器下载的数据超出所必需的量。尽管在西方国家和地区中，数据相对较廉价，但新兴市场并非如此，这些市场中连接和数据费用都非常昂贵。</li>
+</ul>
+<h3 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h3><hr>
+<p>App Shell 应能完美地执行以下操作：</p>
+<ul>
+<li>快速加载</li>
+<li>尽可能使用较少的数据</li>
+<li>使用本机缓存中的静态资产</li>
+<li>将内容与导航分离开来</li>
+<li>检索和显示特定页面的内容（HTML、JSON 等）</li>
+<li>可选：缓存动态内容<br>App Shell 可保证 UI 的本地化以及从 API 动态加载内容，但同时不影响网络的可链接性和可检测性。 用户下次访问您的应用时，应用会自动显示最新版本。无需在使用前下载新版本。</li>
+</ul>
+<p>注：<a target="_blank" rel="noopener" href="https://github.com/GoogleChrome/lighthouse/find/master">Lighthouse</a>审核扩展可用于验证使用 App Shell 的 PWA 是否获得了高性能。 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=LZjQ25NRV-E&hl=zh-cn">To the Lighthouse (Progressive Web App Summit 2016) - YouTube</a>介绍了使用这个工具优化 PWA 的过程。</p>
+<h3 id="构建您自己的-App-Shell"><a href="#构建您自己的-App-Shell" class="headerlink" title="构建您自己的 App Shell"></a>构建您自己的 App Shell</h3><hr>
+<p>构建您自己的应用，明确区分页面 Shell 和动态内容。 一般而言，您的应用应加载尽可能最简单的 Shell，但初始下载时应包含足够的有意义的页面内容。 确定每个数据来源的速度与数据新鲜度之间的正确平衡点。</p>
+<p><img src="App%20Shell%E6%A8%A1%E5%9E%8B/wikipedia.jpg" alt=""></p>
+<p>Jake Archibald 的离线维基百科应用<a target="_blank" rel="noopener" href="https://wiki-offline.jakearchibald.com/wiki/Rick_and_Morty">Rick and Morty - Offline Wikipedia</a>就是使用 App Shell 模型的 PWA 好例子。它会在重复访问时即时加载，但同时使用 JS 动态抓取内容。系统随后会离线缓存此内容，以备以后访问。</p>
+<h3 id="App-Shell-的-HTML-示例"><a href="#App-Shell-的-HTML-示例" class="headerlink" title="App Shell 的 HTML 示例"></a>App Shell 的 HTML 示例</h3><hr>
+<p>此示例将核心应用基础架构和 UI 从数据中分离出来。请务必使初始加载尽可能简单，在打开网络应用后仅显示页面的布局。有些数据来自于应用的索引文件（内联 DOM、样式），其他数据加载自外部脚本和样式表。</p>
+<p>所有 UI 和基础架构都使用服务工作线程本地缓存，因此，随后的加载将仅检索新数据或发生更改的数据，而不是必须加载所有数据。</p>
+<p>您工作目录中的 <code>index.html</code> 文件内容应类似于以下代码。 这是实际内容的子集，不是完整的索引文件。 让我们看看它包含的内容。</p>
+<ul>
+<li>用户界面“主干”的 HTML 和 CSS，包含导航和内容占位符。</li>
+<li>用于处理导航和 UI 逻辑的外部 JavaScript 文件 (<code>app.js</code>)，以及用于显示从服务器中检索的帖子并使用 IndexedDB 等存储机制将其存储在本地的代码。</li>
+<li>网络应用清单和用于启用离线功能的服务工作线程加载程序。</li>
+</ul>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>App Shell<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>manifest<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/manifest.json<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>App Shell<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/css<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>styles/inline.css<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>header</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>header<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>header__title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>App Shell<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>header</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>nav</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      ...
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>nav</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      ...
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>main</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dialog-container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      ...
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>loader<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token comment">&lt;!-- Show a spinner or placeholders for content --></span>
+<pre><code>&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;script&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;app.js&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token script&quot;&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;script&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;script&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token script&quot;&gt;&lt;span class=&quot;token language-javascript&quot;&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;serviceWorker&quot;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; navigator&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
+    navigator&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;serviceWorker
+      &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;/sw.js&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;registration&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;// Registration was successful&lt;/span&gt;
+        console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+          &lt;span class=&quot;token string&quot;&gt;&quot;ServiceWorker registration successful with scope: &quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+          registration&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;scope
+        &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;// registration failed :(&lt;/span&gt;
+        console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;ServiceWorker registration failed: &quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; err&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;script&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;</code></pre><p>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>:hexoPostRenderEscape–&gt;</p>
+<p><em>注：请参阅 <a target="_blank" rel="noopener" href="https://app-shell.appspot.com/，查看一个非常简单的、使用">https://app-shell.appspot.com/，查看一个非常简单的、使用</a> App Shell 和内容服务器端渲染的 PWA 的真实演示。App Shell 可通过使用任意内容库或框架实现（如我们的所有框架上的 Progressive Web App 讲座中<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=srdKq0DckXQ&hl=zh-cn">Progressive Web Apps across all frameworks - Google I/O 2016 - YouTube</a>所述）。您可以使用 Polymer (<a target="_blank" rel="noopener" href="https://shop.polymer-project.org/">SHOP</a>) 和 React （<a target="_blank" rel="noopener" href="https://github.com/insin/react-hn">ReactHN</a> 、iFixit）查看示例。</em></p>
+<h3 id="缓存-App-Shell"><a href="#缓存-App-Shell" class="headerlink" title="缓存 App Shell"></a>缓存 App Shell</h3><hr>
+<p>您可以使用手动编写的服务工作线程或通过 sw-precache 等静态资产预缓存工具生成的服务工作线程缓存 App Shell。</p>
+<p>注：这些示例仅为呈现一般信息以及进行说明而提供。 您的应用使用的实际资源很可能不同。</p>
+<h3 id="手动缓存-App-Shell"><a href="#手动缓存-App-Shell" class="headerlink" title="手动缓存 App Shell"></a>手动缓存 App Shell</h3><p>以下是使用服务工作线程的 <code>install</code> 事件将 <code>App Shell</code> 中的静态资源缓存到 Cache API <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Cache">Cache - Web APIs | MDN</a> 中的服务工作线程代码示例:</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">ar cacheName <span class="token operator">=</span> <span class="token string">'shell-content'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> filesToCache <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token string">'/css/styles.css'</span><span class="token punctuation">,</span>
+  <span class="token string">'/js/scripts.js'</span><span class="token punctuation">,</span>
+  <span class="token string">'/images/logo.svg'</span><span class="token punctuation">,</span>
+  '<span class="token operator">/</span>offline<span class="token punctuation">.</span>html’<span class="token punctuation">,</span>
+  '<span class="token operator">/</span>’
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+self<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'install'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'[ServiceWorker] Install'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  e<span class="token punctuation">.</span><span class="token function">waitUntil</span><span class="token punctuation">(</span>
+    caches<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span>cacheName<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">cache</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'[ServiceWorker] Caching app shell'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> cache<span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>filesToCache<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="使用-sw-precache-缓存-App-Shell"><a href="#使用-sw-precache-缓存-App-Shell" class="headerlink" title="使用 sw-precache 缓存 App Shell"></a>使用 sw-precache 缓存 App Shell</h3><hr>
+<p>sw-precache 生成的服务工作线程会缓存并提供您在构建过程中配置的资源。 您可以让此线程预先缓存构成 App Shell 的每个 HTML、JavaScript 和 CSS 文件。 所有资源都可以离线工作，并且可在随后的访问中快速加载相关内容，无需其他操作。</p>
+<p>以下是在 gulp 构建过程中使用 sw-precache 的基本示例：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">gulp<span class="token punctuation">.</span><span class="token function">task</span><span class="token punctuation">(</span><span class="token string">"generate-service-worker"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">callback</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"path"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> swPrecache <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"sw-precache"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> rootDir <span class="token operator">=</span> <span class="token string">"app"</span><span class="token punctuation">;</span>
+
+  swPrecache<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>
+    path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>rootDir<span class="token punctuation">,</span> <span class="token string">"service-worker.js"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+      staticFileGlobs<span class="token operator">:</span> <span class="token punctuation">[</span>rootDir <span class="token operator">+</span> <span class="token string">"/**/*.&#123;js,html,css,png,jpg,gif&#125;"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      stripPrefix<span class="token operator">:</span> rootDir
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    callback
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如需了解有关静态资产缓存的详细信息，请参阅使用 sw-precache 添加服务工作线程代码实验室<a target="_blank" rel="noopener" href="https://codelabs.developers.google.com/codelabs/sw-precache/index.html?index=..%2F..%2Findex&hl=zh-cn#0">Adding a Service Worker with sw-precache</a>。</p>
+<p>注：sw-precache 对于离线缓存您的静态资源非常有用。对于运行时/动态资源，我们建议使用我们的免费内容库<a target="_blank" rel="noopener" href="https://github.com/GoogleChromeLabs/sw-toolbox">sw-toolbox</a>。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><hr>
+<p>使用服务工作线程的 <code>App Shell</code> 是实现离线缓存的强大模式，但同时还可以针对 <code>PWA</code> 的重复访问实现即时加载这一重要性能。您可以缓存自己的 <code>App Shell</code> ，以便它可以离线使用并使用 <code>JavaScript</code> 填充其内容。</p>
+<p>如果重复访问，这样还可让您在没有网络的情况下（即使您的内容最终源自网络）在屏幕上获得有意义的像素。</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8-App-Shell-%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">何时使用 App Shell 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF"><span class="toc-number">2.</span> <span class="toc-text">优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A6%81%E6%B1%82"><span class="toc-number">3.</span> <span class="toc-text">要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E6%82%A8%E8%87%AA%E5%B7%B1%E7%9A%84-App-Shell"><span class="toc-number">4.</span> <span class="toc-text">构建您自己的 App Shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#App-Shell-%E7%9A%84-HTML-%E7%A4%BA%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">App Shell 的 HTML 示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98-App-Shell"><span class="toc-number">6.</span> <span class="toc-text">缓存 App Shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E7%BC%93%E5%AD%98-App-Shell"><span class="toc-number">7.</span> <span class="toc-text">手动缓存 App Shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-sw-precache-%E7%BC%93%E5%AD%98-App-Shell"><span class="toc-number">8.</span> <span class="toc-text">使用 sw-precache 缓存 App Shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">9.</span> <span class="toc-text">结论</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2018/02/06/app-shell-md/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&text=App Shell模型"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&title=App Shell模型"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&is_video=false&description=App Shell模型"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=App Shell模型&body=Check out this article: https://iamtaoxin.com/2018/02/06/app-shell-md/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&title=App Shell模型"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&title=App Shell模型"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&title=App Shell模型"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&title=App Shell模型"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2018/02/06/app-shell-md/&name=App Shell模型&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2018/02/06/app-shell-md/&t=App Shell模型"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Nix_____
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96088772-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-96088772-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'xin_tao';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>

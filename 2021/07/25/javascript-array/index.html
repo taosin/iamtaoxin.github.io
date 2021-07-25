@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="数组是计算机编程世界里最常见的数据结构。任何一种编程语言都包含数组。它是编程语言中的内建模型，通常效率很高，可以满足不同需求的数据存储。  一、JavaScript 中的数组数组的标准定义是：一个存储元素的线性集合（collection），元素可以通过索引来进行存取操作，所以通常是数字，用来计算元素之间存储位置的偏移量。 通俗地讲，数组是一种线性表数据结构，它使用一组连续的内存空间，来存储一组具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 数据结构--数组">
+<meta property="og:url" content="https://iamtaoxin.com/2021/07/25/javascript-array/index.html">
+<meta property="og:site_name" content="码徒的博客">
+<meta property="og:description" content="数组是计算机编程世界里最常见的数据结构。任何一种编程语言都包含数组。它是编程语言中的内建模型，通常效率很高，可以满足不同需求的数据存储。  一、JavaScript 中的数组数组的标准定义是：一个存储元素的线性集合（collection），元素可以通过索引来进行存取操作，所以通常是数字，用来计算元素之间存储位置的偏移量。 通俗地讲，数组是一种线性表数据结构，它使用一组连续的内存空间，来存储一组具">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6e4c45f3b1fe41d9aa5c102e320311f5~tplv-k3u1fbpfcp-watermark.image">
+<meta property="article:published_time" content="2021-07-25T13:40:27.000Z">
+<meta property="article:modified_time" content="2021-07-25T13:59:08.031Z">
+<meta property="article:author" content="Nix_____">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6e4c45f3b1fe41d9aa5c102e320311f5~tplv-k3u1fbpfcp-watermark.image">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>JavaScript 数据结构--数组</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 5.0.0"><link rel="alternate" href="/atom.xml" title="码徒的博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇 " href="/2020/05/30/making-vue-3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部 " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章 " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2021/07/25/javascript-array/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2021/07/25/javascript-array/&text=JavaScript 数据结构--数组"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2021/07/25/javascript-array/&title=JavaScript 数据结构--数组"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2021/07/25/javascript-array/&is_video=false&description=JavaScript 数据结构--数组"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript 数据结构--数组&body=Check out this article: https://iamtaoxin.com/2021/07/25/javascript-array/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2021/07/25/javascript-array/&title=JavaScript 数据结构--数组"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2021/07/25/javascript-array/&title=JavaScript 数据结构--数组"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2021/07/25/javascript-array/&title=JavaScript 数据结构--数组"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2021/07/25/javascript-array/&title=JavaScript 数据结构--数组"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2021/07/25/javascript-array/&name=JavaScript 数据结构--数组&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2021/07/25/javascript-array/&t=JavaScript 数据结构--数组"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81JavaScript-%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84"><span class="toc-number">1.</span> <span class="toc-text">一、JavaScript 中的数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8%E6%95%B0%E7%BB%84"><span class="toc-number">2.</span> <span class="toc-text">二、使用数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%88%9B%E5%BB%BA%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E6%95%B0%E7%BB%84"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 创建和初始化数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 添加和删除元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E4%BA%8C%E7%BB%B4%E5%92%8C%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 二维和多维数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-JavaScript-%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 JavaScript 数组的方法</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        JavaScript 数据结构--数组
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Nix_____</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-07-25T13:40:27.000Z" itemprop="datePublished">2021-07-25</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E6%95%B4%E7%90%86/">技术整理</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Javascript/" rel="tag">Javascript</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>数组是计算机编程世界里最常见的数据结构。任何一种编程语言都包含数组。它是编程语言中的内建模型，通常效率很高，可以满足不同需求的数据存储。</p>
+</blockquote>
+<h2 id="一、JavaScript-中的数组"><a href="#一、JavaScript-中的数组" class="headerlink" title="一、JavaScript 中的数组"></a>一、JavaScript 中的数组</h2><p>数组的标准定义是：一个存储元素的<strong>线性集合</strong>（<code>collection</code>），元素可以通过索引来进行存取操作，所以通常是数字，用来计算元素之间存储位置的偏移量。</p>
+<p>通俗地讲，数组是一种<strong>线性表</strong>数据结构，它使用一组连续的内存空间，来存储一组具有相同类型的数据。但是在 JavaScript 中，数组中可以保存不同类型的值（为遵守最佳实践，一般不建议这么做）。</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6e4c45f3b1fe41d9aa5c102e320311f5~tplv-k3u1fbpfcp-watermark.image" alt="线性表.001.jpeg"><br>然而 JavaScript 中的数组，严格来说应该称作对象，是一种特殊的对象，索引是它的属性，可以是整数，但是由于 JavaScript 中对象的属性名必须为字符串，所以这些索引在内部由数字类型被转换为字符串类型。</p>
+<h2 id="二、使用数组"><a href="#二、使用数组" class="headerlink" title="二、使用数组"></a>二、使用数组</h2><h3 id="2-1-创建和初始化数组"><a href="#2-1-创建和初始化数组" class="headerlink" title="2.1 创建和初始化数组"></a>2.1 创建和初始化数组</h3><p>你可以通过 <code>[]</code> 操作符来声明一个数组变量：</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>     <span class="token comment">// 长度为 0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>当然了，你也可以在声明数组时直接放入一些元素：</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token comment">// 长度为 4</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>另外，你还可以通过构造函数来创建它：</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> nums <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>同样，你也可以用它来创建一个长度为 10，元素为 0 的数组：</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> arr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>最后，我们可以通过 <code>Array.isArray()</code> 来判断一个对象是否是数组:</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// false</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+<h3 id="2-2-添加和删除元素"><a href="#2-2-添加和删除元素" class="headerlink" title="2.2 添加和删除元素"></a>2.2 添加和删除元素</h3><p><strong>添加元素：</strong></p>
+<ol>
+<li><code>push</code> 方法: 把元素添加到数组的末尾；</li>
+<li><code>unshift</code> 方法: 把元素插入到数组的首位；</li>
+</ol>
+<p><strong>删除元素：</strong></p>
+<ol>
+<li><code>pop</code> 方法：删除数组末尾的元素;</li>
+<li><code>shift</code> 方法：删除数组首位的元素；</li>
+<li><code>slice</code> 方法：删除相应位置和数量的元素，还可以通过第三个参数添加或替换元素。</li>
+</ol>
+<p><strong>Tips!!!:</strong></p>
+<ol>
+<li>在 JavaScript 中，数组是一个可以修改的对象。添加元素，它就会动态增长；</li>
+<li>通过 <code>push</code> 和 <code>pop</code> 方法，可以用数组来模拟栈；</li>
+<li>通过 <code>unshift</code> 和 <code>shift</code> 方法，可以用数组来模拟队列。</li>
+</ol>
+<h3 id="2-3-二维和多维数组"><a href="#2-3-二维和多维数组" class="headerlink" title="2.3 二维和多维数组"></a>2.3 二维和多维数组</h3><p>JavaScript 只支持一维数组，但是可以通过数组嵌套数组的方式实现任一多维数组：</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> arrs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="2-4-JavaScript-数组的方法"><a href="#2-4-JavaScript-数组的方法" class="headerlink" title="2.4 JavaScript 数组的方法"></a>2.4 JavaScript 数组的方法</h3><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>concat</code></td>
+<td>连接 2 个或更多数组，并返回结果</td>
+</tr>
+<tr>
+<td><code>every</code></td>
+<td>对数组中每一个元素运行指定函数，如果该函数对每一项都返回true，则返回 true</td>
+</tr>
+<tr>
+<td><code>filter</code></td>
+<td>对数组中每一个元素运行指定函数，返回该函数返回 true结果的项组成的数组</td>
+</tr>
+<tr>
+<td><code>forEach</code></td>
+<td>对数组中每一个元素运行指定函数，没有返回值</td>
+</tr>
+<tr>
+<td><code>join</code></td>
+<td>将所有的数组元素拼接成一个字符串</td>
+</tr>
+<tr>
+<td><code>indexOf</code></td>
+<td>返回第一个与给定参数相等的数组元素的索引，没有找到则返回-1</td>
+</tr>
+<tr>
+<td><code>lastIndexOf</code></td>
+<td>返回在数组中搜索到的与给定参数相等的元素的索引里最大的值</td>
+</tr>
+<tr>
+<td><code>map</code></td>
+<td>对数组中的每一项运行指定函数，返回每次函数调用的结果组成的数组</td>
+</tr>
+<tr>
+<td><code>reverse</code></td>
+<td>翻转数组</td>
+</tr>
+<tr>
+<td><code>slice</code></td>
+<td>传入索引值，将数组里对应范围内的元素作为新数组返回</td>
+</tr>
+<tr>
+<td><code>some</code></td>
+<td>对数组中的每一项运行指定函数，任一项返回true，则返回true</td>
+</tr>
+<tr>
+<td><code>sort</code></td>
+<td>对数组中的元素进行排序</td>
+</tr>
+<tr>
+<td><code>toString</code></td>
+<td>将数组作为字符串返回</td>
+</tr>
+<tr>
+<td><code>valueOf</code></td>
+<td>类似 toString</td>
+</tr>
+</tbody></table>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81JavaScript-%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84"><span class="toc-number">1.</span> <span class="toc-text">一、JavaScript 中的数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8%E6%95%B0%E7%BB%84"><span class="toc-number">2.</span> <span class="toc-text">二、使用数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%88%9B%E5%BB%BA%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E6%95%B0%E7%BB%84"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 创建和初始化数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 添加和删除元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E4%BA%8C%E7%BB%B4%E5%92%8C%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 二维和多维数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-JavaScript-%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 JavaScript 数组的方法</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2021/07/25/javascript-array/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2021/07/25/javascript-array/&text=JavaScript 数据结构--数组"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2021/07/25/javascript-array/&title=JavaScript 数据结构--数组"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2021/07/25/javascript-array/&is_video=false&description=JavaScript 数据结构--数组"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript 数据结构--数组&body=Check out this article: https://iamtaoxin.com/2021/07/25/javascript-array/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2021/07/25/javascript-array/&title=JavaScript 数据结构--数组"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2021/07/25/javascript-array/&title=JavaScript 数据结构--数组"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2021/07/25/javascript-array/&title=JavaScript 数据结构--数组"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2021/07/25/javascript-array/&title=JavaScript 数据结构--数组"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2021/07/25/javascript-array/&name=JavaScript 数据结构--数组&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2021/07/25/javascript-array/&t=JavaScript 数据结构--数组"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Nix_____
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96088772-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-96088772-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'xin_tao';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="一、优化的原则和方向1.1 前端性能优化的原则其实就是更好的用户体验，具体实现的目标大体有两个： 合理使用内存或缓存，减少请求； 减少 CPU 或 GPU 的计算，达到更快的展现。  1.2 前端在性能优化的方向大致有两个： 减少页面体积，提升网络加载; 优化页面渲染  二、方向详情2.1 较少页面体积，提升网络加载 静态资源的压缩合并（JS 代码压缩合并、 CSS 代码压缩合并、雪碧图） i.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈前端优化">
+<meta property="og:url" content="https://iamtaoxin.com/2018/05/27/front-end-optimization/index.html">
+<meta property="og:site_name" content="码徒的博客">
+<meta property="og:description" content="一、优化的原则和方向1.1 前端性能优化的原则其实就是更好的用户体验，具体实现的目标大体有两个： 合理使用内存或缓存，减少请求； 减少 CPU 或 GPU 的计算，达到更快的展现。  1.2 前端在性能优化的方向大致有两个： 减少页面体积，提升网络加载; 优化页面渲染  二、方向详情2.1 较少页面体积，提升网络加载 静态资源的压缩合并（JS 代码压缩合并、 CSS 代码压缩合并、雪碧图） i.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-05-27T14:32:47.000Z">
+<meta property="article:modified_time" content="2021-07-25T10:03:05.989Z">
+<meta property="article:author" content="Nix_____">
+<meta property="article:tag" content="性能优化">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>谈谈前端优化</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 5.0.0"><link rel="alternate" href="/atom.xml" title="码徒的博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇 " href="/2018/06/08/node-js-nginx-https/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇 " href="/2018/05/20/fe-interview-js/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部 " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章 " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2018/05/27/front-end-optimization/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&text=谈谈前端优化"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&title=谈谈前端优化"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&is_video=false&description=谈谈前端优化"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=谈谈前端优化&body=Check out this article: https://iamtaoxin.com/2018/05/27/front-end-optimization/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&title=谈谈前端优化"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&title=谈谈前端优化"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&title=谈谈前端优化"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&title=谈谈前端优化"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&name=谈谈前端优化&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2018/05/27/front-end-optimization/&t=谈谈前端优化"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BC%98%E5%8C%96%E7%9A%84%E5%8E%9F%E5%88%99%E5%92%8C%E6%96%B9%E5%90%91"><span class="toc-number">1.</span> <span class="toc-text">一、优化的原则和方向</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-1-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%9A%84%E5%8E%9F%E5%88%99%E5%85%B6%E5%AE%9E%E5%B0%B1%E6%98%AF%E6%9B%B4%E5%A5%BD%E7%9A%84%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%EF%BC%8C%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%9B%AE%E6%A0%87%E5%A4%A7%E4%BD%93%E6%9C%89%E4%B8%A4%E4%B8%AA%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 前端性能优化的原则其实就是更好的用户体验，具体实现的目标大体有两个：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-2-%E5%89%8D%E7%AB%AF%E5%9C%A8%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%9A%84%E6%96%B9%E5%90%91%E5%A4%A7%E8%87%B4%E6%9C%89%E4%B8%A4%E4%B8%AA%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 前端在性能优化的方向大致有两个：</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%96%B9%E5%90%91%E8%AF%A6%E6%83%85"><span class="toc-number">2.</span> <span class="toc-text">二、方向详情</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#2-1-%E8%BE%83%E5%B0%91%E9%A1%B5%E9%9D%A2%E4%BD%93%E7%A7%AF%EF%BC%8C%E6%8F%90%E5%8D%87%E7%BD%91%E7%BB%9C%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 较少页面体积，提升网络加载</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 优化页面渲染</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        谈谈前端优化
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Nix_____</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-05-27T14:32:47.000Z" itemprop="datePublished">2018-05-27</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E6%95%B4%E7%90%86/">技术整理</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h5 id="一、优化的原则和方向"><a href="#一、优化的原则和方向" class="headerlink" title="一、优化的原则和方向"></a>一、优化的原则和方向</h5><h6 id="1-1-前端性能优化的原则其实就是更好的用户体验，具体实现的目标大体有两个："><a href="#1-1-前端性能优化的原则其实就是更好的用户体验，具体实现的目标大体有两个：" class="headerlink" title="1.1 前端性能优化的原则其实就是更好的用户体验，具体实现的目标大体有两个："></a>1.1 前端性能优化的原则其实就是更好的用户体验，具体实现的目标大体有两个：</h6><ul>
+<li>合理使用内存或缓存，减少请求；</li>
+<li>减少 CPU 或 GPU 的计算，达到更快的展现。</li>
+</ul>
+<h6 id="1-2-前端在性能优化的方向大致有两个："><a href="#1-2-前端在性能优化的方向大致有两个：" class="headerlink" title="1.2 前端在性能优化的方向大致有两个："></a>1.2 前端在性能优化的方向大致有两个：</h6><ul>
+<li>减少页面体积，提升网络加载;</li>
+<li>优化页面渲染</li>
+</ul>
+<h5 id="二、方向详情"><a href="#二、方向详情" class="headerlink" title="二、方向详情"></a>二、方向详情</h5><h6 id="2-1-较少页面体积，提升网络加载"><a href="#2-1-较少页面体积，提升网络加载" class="headerlink" title="2.1 较少页面体积，提升网络加载"></a>2.1 较少页面体积，提升网络加载</h6><ul>
+<li>静态资源的压缩合并（<strong>JS</strong> 代码压缩合并、 CSS 代码压缩合并、雪碧图）<ul>
+<li>i. 压缩是为了减小文件的体积，减轻网络负载，达到更快的下载;</li>
+<li>ii. 合并和雪碧图都是为了减少文件的请求次数，但不是合并的就一定比没有合并时加载快，要考虑合并之后的体积，若文件合并之后太大也不利于性能优化，所以在实际项目中要做好权衡。</li>
+</ul>
+</li>
+<li>静态资源缓存（资源名称加 MD5 戳）<ul>
+<li>i. 可以通过链接名称控制缓存： 通过前端构建工具为打包的文件添加 <em>MD5</em> 后缀，这样当打包上线时请求的链接将发生改变，可以防止由于缓存导致静态资源更新失效；</li>
+</ul>
+</li>
+<li>使用 <em>CDN</em> 让资源加载更快</li>
+</ul>
+<h6 id="2-2-优化页面渲染"><a href="#2-2-优化页面渲染" class="headerlink" title="2.2 优化页面渲染"></a>2.2 优化页面渲染</h6><ul>
+<li>CSS 放在头部， <strong>JS</strong> 放后面<ul>
+<li>浏览器在渲染解析过程中，若遇到 <code>&lt;link href=&quot;...&quot;&gt;</code> 和 <code>&lt;script src=&quot;...&quot;&gt;</code> 这种外链加载 CSS 和 <strong>JS</strong> 的标签，浏览器会异步下载并解析执行。 CSS 放在头部是为了让浏览器今早解析执行 CSS 文件，渲染出页面的样式，若放在底部会出现渲染卡顿的情况，影响性能和体验。</li>
+<li>而当渲染过程中遇到 <code>script</code> 标签时就会执行 <strong>JS</strong> 代码，从而阻塞页面渲染，因为浏览器渲染和 <strong>JS</strong> 执行共用一个县城，而且这里必须是单线程操作，多线程会产生渲染 <strong>DOM</strong> 冲突。所以要将 <strong>JS</strong> 放在底部，等到页面渲染完成之后再去解析执行 JS，保证用户体验性。</li>
+<li>另外，JS 执行如果涉及 <strong>DOM</strong> 操作，得等待 <strong>DOM</strong> 解析完成才行，<strong>JS</strong> 放在底部执行是，HTML 肯定都解析成了 <strong>DOM</strong> 结构。 <strong>JS</strong> 如果放在 <strong>HTML</strong> 顶部，<strong>JS</strong> 执行的实行 <strong>HTML</strong> 还没来得及转换为 <strong>DOM</strong> 结构，可能会引起报错。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>懒加载（图片来加载、下拉加载更多）</p>
+<ul>
+<li>i. 先将 <code>src</code> 赋值成一个通用的浏览图，下拉的时候再动态赋值成正式的图片。通用的预览图可以是体积比较小的，这样加载会很快，待页面下拉，图片显示出来时，再去替换 <code>src</code> 为 <code>data-src</code> 的值。（ <code>data-</code> 开头的属性浏览器渲染的时候会忽略掉，提高渲染性能）<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>preview.png<span class="token punctuation">"</span></span> <span class="token attr-name">data-src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>realImg.png<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>减少 <strong>DOM</strong> 查询，对 <strong>DOM</strong> 查询做缓存，代码如下：</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// 只查询一个DOM，缓存在 pList 中了</span>
+<span class="token keyword">var</span> pList <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">'p'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> pList<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//每次循环，都会查询 DOM，耗费性能</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">'p'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>减少 <strong>DOM</strong> 操作，多个操作尽量合并在一起执行 （DocumentFragment）</p>
+<ul>
+<li><strong>DOM</strong> 操作是非常耗费性能的，因此插入多个标签时，先插入 <code>Fragment</code> 然后再统一插入 <strong>DOM</strong>。因为 <code>Fragment</code> 文档片段存在于内存中，并不在 <strong>DOM</strong> 树中，所以将子元素插入到文档片段时不会引起页面回流。</li>
+</ul>
+</li>
+<li><p>事件节流</p>
+<ul>
+<li>i. 防抖</li>
+<li>ii. 节流</li>
+</ul>
+</li>
+<li><p>尽早执行操作</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js">window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'load'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token comment">// 页面的全部资源加载完才会执行，包括图片、视频等</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'DOMContentLoaded'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token comment">// DOM 渲染完成即可执行，此时图片、视频等资源可能没有加载完成</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token function">$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ready</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token comment">// 同 DOMContentLoaded</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>使用 <strong>预渲染</strong> 或者 <strong>SSR服务端渲染</strong>，数据直接输出到 <strong>HTML</strong>中，减少浏览器使用 <strong>JS</strong> 模板渲染页面 <strong>HTML</strong> 的时间，同时也有利于网站的 <strong>SEO</strong>。</p>
+</li>
+</ul>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BC%98%E5%8C%96%E7%9A%84%E5%8E%9F%E5%88%99%E5%92%8C%E6%96%B9%E5%90%91"><span class="toc-number">1.</span> <span class="toc-text">一、优化的原则和方向</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-1-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%9A%84%E5%8E%9F%E5%88%99%E5%85%B6%E5%AE%9E%E5%B0%B1%E6%98%AF%E6%9B%B4%E5%A5%BD%E7%9A%84%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%EF%BC%8C%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%9B%AE%E6%A0%87%E5%A4%A7%E4%BD%93%E6%9C%89%E4%B8%A4%E4%B8%AA%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 前端性能优化的原则其实就是更好的用户体验，具体实现的目标大体有两个：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-2-%E5%89%8D%E7%AB%AF%E5%9C%A8%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%9A%84%E6%96%B9%E5%90%91%E5%A4%A7%E8%87%B4%E6%9C%89%E4%B8%A4%E4%B8%AA%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 前端在性能优化的方向大致有两个：</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%96%B9%E5%90%91%E8%AF%A6%E6%83%85"><span class="toc-number">2.</span> <span class="toc-text">二、方向详情</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#2-1-%E8%BE%83%E5%B0%91%E9%A1%B5%E9%9D%A2%E4%BD%93%E7%A7%AF%EF%BC%8C%E6%8F%90%E5%8D%87%E7%BD%91%E7%BB%9C%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 较少页面体积，提升网络加载</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 优化页面渲染</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://iamtaoxin.com/2018/05/27/front-end-optimization/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&text=谈谈前端优化"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&title=谈谈前端优化"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&is_video=false&description=谈谈前端优化"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=谈谈前端优化&body=Check out this article: https://iamtaoxin.com/2018/05/27/front-end-optimization/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&title=谈谈前端优化"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&title=谈谈前端优化"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&title=谈谈前端优化"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&title=谈谈前端优化"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://iamtaoxin.com/2018/05/27/front-end-optimization/&name=谈谈前端优化&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://iamtaoxin.com/2018/05/27/front-end-optimization/&t=谈谈前端优化"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Nix_____
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/taosin">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96088772-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-96088772-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'xin_tao';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>
