@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://iamtaoxin.com/"/>
-  <updated>2021-07-25T13:59:08.031Z</updated>
+  <updated>2021-08-10T23:34:04.788Z</updated>
   <id>https://iamtaoxin.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://iamtaoxin.com/2021/07/25/javascript-array/"/>
     <id>https://iamtaoxin.com/2021/07/25/javascript-array/</id>
     <published>2021-07-25T13:40:27.000Z</published>
-    <updated>2021-07-25T13:59:08.031Z</updated>
+    <updated>2021-08-10T23:34:04.788Z</updated>
     
     <content type="html"><![CDATA[<blockquote><p>数组是计算机编程世界里最常见的数据结构。任何一种编程语言都包含数组。它是编程语言中的内建模型，通常效率很高，可以满足不同需求的数据存储。</p></blockquote><h2 id="一、JavaScript-中的数组"><a href="#一、JavaScript-中的数组" class="headerlink" title="一、JavaScript 中的数组"></a>一、JavaScript 中的数组</h2><p>数组的标准定义是：一个存储元素的<strong>线性集合</strong>（<code>collection</code>），元素可以通过索引来进行存取操作，所以通常是数字，用来计算元素之间存储位置的偏移量。</p><p>通俗地讲，数组是一种<strong>线性表</strong>数据结构，它使用一组连续的内存空间，来存储一组具有相同类型的数据。但是在 JavaScript 中，数组中可以保存不同类型的值（为遵守最佳实践，一般不建议这么做）。</p><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6e4c45f3b1fe41d9aa5c102e320311f5~tplv-k3u1fbpfcp-watermark.image" alt="线性表.001.jpeg"><br>然而 JavaScript 中的数组，严格来说应该称作对象，是一种特殊的对象，索引是它的属性，可以是整数，但是由于 JavaScript 中对象的属性名必须为字符串，所以这些索引在内部由数字类型被转换为字符串类型。</p><h2 id="二、使用数组"><a href="#二、使用数组" class="headerlink" title="二、使用数组"></a>二、使用数组</h2><h3 id="2-1-创建和初始化数组"><a href="#2-1-创建和初始化数组" class="headerlink" title="2.1 创建和初始化数组"></a>2.1 创建和初始化数组</h3><p>你可以通过 <code>[]</code> 操作符来声明一个数组变量：</p><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>     <span class="token comment">// 长度为 0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>当然了，你也可以在声明数组时直接放入一些元素：</p><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token comment">// 长度为 4</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>另外，你还可以通过构造函数来创建它：</p><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> nums <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>同样，你也可以用它来创建一个长度为 10，元素为 0 的数组：</p><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> arr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>最后，我们可以通过 <code>Array.isArray()</code> 来判断一个对象是否是数组:</p><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// false</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h3 id="2-2-添加和删除元素"><a href="#2-2-添加和删除元素" class="headerlink" title="2.2 添加和删除元素"></a>2.2 添加和删除元素</h3><p><strong>添加元素：</strong></p><ol><li><code>push</code> 方法: 把元素添加到数组的末尾；</li><li><code>unshift</code> 方法: 把元素插入到数组的首位；</li></ol><p><strong>删除元素：</strong></p><ol><li><code>pop</code> 方法：删除数组末尾的元素;</li><li><code>shift</code> 方法：删除数组首位的元素；</li><li><code>slice</code> 方法：删除相应位置和数量的元素，还可以通过第三个参数添加或替换元素。</li></ol><p><strong>Tips!!!:</strong></p><ol><li>在 JavaScript 中，数组是一个可以修改的对象。添加元素，它就会动态增长；</li><li>通过 <code>push</code> 和 <code>pop</code> 方法，可以用数组来模拟栈；</li><li>通过 <code>unshift</code> 和 <code>shift</code> 方法，可以用数组来模拟队列。</li></ol><h3 id="2-3-二维和多维数组"><a href="#2-3-二维和多维数组" class="headerlink" title="2.3 二维和多维数组"></a>2.3 二维和多维数组</h3><p>JavaScript 只支持一维数组，但是可以通过数组嵌套数组的方式实现任一多维数组：</p><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> arrs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="2-4-JavaScript-数组的方法"><a href="#2-4-JavaScript-数组的方法" class="headerlink" title="2.4 JavaScript 数组的方法"></a>2.4 JavaScript 数组的方法</h3><table><thead><tr><th>方法名</th><th>描述</th></tr></thead><tbody><tr><td><code>concat</code></td><td>连接 2 个或更多数组，并返回结果</td></tr><tr><td><code>every</code></td><td>对数组中每一个元素运行指定函数，如果该函数对每一项都返回true，则返回 true</td></tr><tr><td><code>filter</code></td><td>对数组中每一个元素运行指定函数，返回该函数返回 true结果的项组成的数组</td></tr><tr><td><code>forEach</code></td><td>对数组中每一个元素运行指定函数，没有返回值</td></tr><tr><td><code>join</code></td><td>将所有的数组元素拼接成一个字符串</td></tr><tr><td><code>indexOf</code></td><td>返回第一个与给定参数相等的数组元素的索引，没有找到则返回-1</td></tr><tr><td><code>lastIndexOf</code></td><td>返回在数组中搜索到的与给定参数相等的元素的索引里最大的值</td></tr><tr><td><code>map</code></td><td>对数组中的每一项运行指定函数，返回每次函数调用的结果组成的数组</td></tr><tr><td><code>reverse</code></td><td>翻转数组</td></tr><tr><td><code>slice</code></td><td>传入索引值，将数组里对应范围内的元素作为新数组返回</td></tr><tr><td><code>some</code></td><td>对数组中的每一项运行指定函数，任一项返回true，则返回true</td></tr><tr><td><code>sort</code></td><td>对数组中的元素进行排序</td></tr><tr><td><code>toString</code></td><td>将数组作为字符串返回</td></tr><tr><td><code>valueOf</code></td><td>类似 toString</td></tr></tbody></table>]]></content>
     
@@ -41,7 +41,7 @@
       <category term="技术整理" scheme="https://iamtaoxin.com/categories/%E6%8A%80%E6%9C%AF%E6%95%B4%E7%90%86/"/>
     
     
-      <category term="Javascript" scheme="https://iamtaoxin.com/tags/Javascript/"/>
+      <category term="JavaScript" scheme="https://iamtaoxin.com/tags/JavaScript/"/>
     
   </entry>
   
@@ -261,6 +261,34 @@
     
     
       <category term="Vue.js" scheme="https://iamtaoxin.com/tags/Vue-js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>雕刻</title>
+    <link href="https://iamtaoxin.com/2019/12/09/sugeladi/"/>
+    <id>https://iamtaoxin.com/2019/12/09/sugeladi/</id>
+    <published>2019-12-09T11:14:45.000Z</published>
+    <updated>2021-08-10T23:34:04.788Z</updated>
+    
+    <content type="html"><![CDATA[<p>苏格拉底的父亲是以为著名的石雕师傅，在苏格拉底很小的时候，有一次他父亲正在雕刻一直石狮子，小苏格拉底观察了好一阵子，突然问父亲：“怎样才能成为一个好的雕刻师呢？”</p><p>“看！”父亲说，“以这只石狮子来说吧，我并不是在雕刻这只石狮子，我是在唤醒它！”</p><p> “唤醒？”</p><p>“狮子本来就沉睡在石块中，我只是将他从石头牢笼中解救出来而已。”</p><hr><p><strong>一万次的灌输，不如一次真正的唤醒。</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;苏格拉底的父亲是以为著名的石雕师傅，在苏格拉底很小的时候，有一次他父亲正在雕刻一直石狮子，小苏格拉底观察了好一阵子，突然问父亲：“怎样才能成为一个好的雕刻师呢？”&lt;/p&gt;
+&lt;p&gt;“看！”父亲说，“以这只石狮子来说吧，我并不是在雕刻这只石狮子，我是在唤醒它！”&lt;/p&gt;
+&lt;p&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="代码之外" scheme="https://iamtaoxin.com/categories/%E4%BB%A3%E7%A0%81%E4%B9%8B%E5%A4%96/"/>
+    
+    
+      <category term="日记" scheme="https://iamtaoxin.com/tags/%E6%97%A5%E8%AE%B0/"/>
     
   </entry>
   
@@ -532,32 +560,6 @@
     
     
       <category term="服务器部署" scheme="https://iamtaoxin.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>谈谈前端优化</title>
-    <link href="https://iamtaoxin.com/2018/05/27/front-end-optimization/"/>
-    <id>https://iamtaoxin.com/2018/05/27/front-end-optimization/</id>
-    <published>2018-05-27T14:32:47.000Z</published>
-    <updated>2021-07-25T10:03:05.989Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="一、优化的原则和方向"><a href="#一、优化的原则和方向" class="headerlink" title="一、优化的原则和方向"></a>一、优化的原则和方向</h5><h6 id="1-1-前端性能优化的原则其实就是更好的用户体验，具体实现的目标大体有两个："><a href="#1-1-前端性能优化的原则其实就是更好的用户体验，具体实现的目标大体有两个：" class="headerlink" title="1.1 前端性能优化的原则其实就是更好的用户体验，具体实现的目标大体有两个："></a>1.1 前端性能优化的原则其实就是更好的用户体验，具体实现的目标大体有两个：</h6><ul><li>合理使用内存或缓存，减少请求；</li><li>减少 CPU 或 GPU 的计算，达到更快的展现。</li></ul><h6 id="1-2-前端在性能优化的方向大致有两个："><a href="#1-2-前端在性能优化的方向大致有两个：" class="headerlink" title="1.2 前端在性能优化的方向大致有两个："></a>1.2 前端在性能优化的方向大致有两个：</h6><ul><li>减少页面体积，提升网络加载;</li><li>优化页面渲染</li></ul><h5 id="二、方向详情"><a href="#二、方向详情" class="headerlink" title="二、方向详情"></a>二、方向详情</h5><h6 id="2-1-较少页面体积，提升网络加载"><a href="#2-1-较少页面体积，提升网络加载" class="headerlink" title="2.1 较少页面体积，提升网络加载"></a>2.1 较少页面体积，提升网络加载</h6><ul><li>静态资源的压缩合并（<strong>JS</strong> 代码压缩合并、 CSS 代码压缩合并、雪碧图）<ul><li>i. 压缩是为了减小文件的体积，减轻网络负载，达到更快的下载;</li><li>ii. 合并和雪碧图都是为了减少文件的请求次数，但不是合并的就一定比没有合并时加载快，要考虑合并之后的体积，若文件合并之后太大也不利于性能优化，所以在实际项目中要做好权衡。</li></ul></li><li>静态资源缓存（资源名称加 MD5 戳）<ul><li>i. 可以通过链接名称控制缓存： 通过前端构建工具为打包的文件添加 <em>MD5</em> 后缀，这样当打包上线时请求的链接将发生改变，可以防止由于缓存导致静态资源更新失效；</li></ul></li><li>使用 <em>CDN</em> 让资源加载更快</li></ul><h6 id="2-2-优化页面渲染"><a href="#2-2-优化页面渲染" class="headerlink" title="2.2 优化页面渲染"></a>2.2 优化页面渲染</h6><ul><li>CSS 放在头部， <strong>JS</strong> 放后面<ul><li>浏览器在渲染解析过程中，若遇到 <code>&lt;link href=&quot;...&quot;&gt;</code> 和 <code>&lt;script src=&quot;...&quot;&gt;</code> 这种外链加载 CSS 和 <strong>JS</strong> 的标签，浏览器会异步下载并解析执行。 CSS 放在头部是为了让浏览器今早解析执行 CSS 文件，渲染出页面的样式，若放在底部会出现渲染卡顿的情况，影响性能和体验。</li><li>而当渲染过程中遇到 <code>script</code> 标签时就会执行 <strong>JS</strong> 代码，从而阻塞页面渲染，因为浏览器渲染和 <strong>JS</strong> 执行共用一个县城，而且这里必须是单线程操作，多线程会产生渲染 <strong>DOM</strong> 冲突。所以要将 <strong>JS</strong> 放在底部，等到页面渲染完成之后再去解析执行 JS，保证用户体验性。</li><li>另外，JS 执行如果涉及 <strong>DOM</strong> 操作，得等待 <strong>DOM</strong> 解析完成才行，<strong>JS</strong> 放在底部执行是，HTML 肯定都解析成了 <strong>DOM</strong> 结构。 <strong>JS</strong> 如果放在 <strong>HTML</strong> 顶部，<strong>JS</strong> 执行的实行 <strong>HTML</strong> 还没来得及转换为 <strong>DOM</strong> 结构，可能会引起报错。</li></ul></li></ul><ul><li><p>懒加载（图片来加载、下拉加载更多）</p><ul><li>i. 先将 <code>src</code> 赋值成一个通用的浏览图，下拉的时候再动态赋值成正式的图片。通用的预览图可以是体积比较小的，这样加载会很快，待页面下拉，图片显示出来时，再去替换 <code>src</code> 为 <code>data-src</code> 的值。（ <code>data-</code> 开头的属性浏览器渲染的时候会忽略掉，提高渲染性能）<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>preview.png<span class="token punctuation">"</span></span> <span class="token attr-name">data-src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>realImg.png<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li></ul></li><li><p>减少 <strong>DOM</strong> 查询，对 <strong>DOM</strong> 查询做缓存，代码如下：</p><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// 只查询一个DOM，缓存在 pList 中了</span><span class="token keyword">var</span> pList <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">'p'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> pList<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token comment">//每次循环，都会查询 DOM，耗费性能</span><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">'p'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li><li><p>减少 <strong>DOM</strong> 操作，多个操作尽量合并在一起执行 （DocumentFragment）</p><ul><li><strong>DOM</strong> 操作是非常耗费性能的，因此插入多个标签时，先插入 <code>Fragment</code> 然后再统一插入 <strong>DOM</strong>。因为 <code>Fragment</code> 文档片段存在于内存中，并不在 <strong>DOM</strong> 树中，所以将子元素插入到文档片段时不会引起页面回流。</li></ul></li><li><p>事件节流</p><ul><li>i. 防抖</li><li>ii. 节流</li></ul></li><li><p>尽早执行操作</p><pre class="line-numbers language-js" data-language="js"><code class="language-js">window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'load'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>  <span class="token comment">// 页面的全部资源加载完才会执行，包括图片、视频等</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'DOMContentLoaded'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>  <span class="token comment">// DOM 渲染完成即可执行，此时图片、视频等资源可能没有加载完成</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token function">$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ready</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>  <span class="token comment">// 同 DOMContentLoaded</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li><li><p>使用 <strong>预渲染</strong> 或者 <strong>SSR服务端渲染</strong>，数据直接输出到 <strong>HTML</strong>中，减少浏览器使用 <strong>JS</strong> 模板渲染页面 <strong>HTML</strong> 的时间，同时也有利于网站的 <strong>SEO</strong>。</p></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h5 id=&quot;一、优化的原则和方向&quot;&gt;&lt;a href=&quot;#一、优化的原则和方向&quot; class=&quot;headerlink&quot; title=&quot;一、优化的原则和方向&quot;&gt;&lt;/a&gt;一、优化的原则和方向&lt;/h5&gt;&lt;h6 id=&quot;1-1-前端性能优化的原则其实就是更好的用户体验，具体实现的目标大
-      
-    
-    </summary>
-    
-    
-      <category term="技术整理" scheme="https://iamtaoxin.com/categories/%E6%8A%80%E6%9C%AF%E6%95%B4%E7%90%86/"/>
-    
-    
-      <category term="性能优化" scheme="https://iamtaoxin.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     
   </entry>
   
